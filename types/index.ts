@@ -295,6 +295,7 @@ export interface TestimonialVariant {
 export interface FooterLink {
   name: string;
   href: string;
+  target?: string;
 }
 
 export interface FooterContact {
@@ -309,6 +310,7 @@ export interface FooterVariant {
   logoAlt?: string;
   scrollToTopAriaLabel?: string;
   description: string;
+  linkMap?: Record<string, string>;
   social: SocialLink[];
   quickLinks: {
     title: string;

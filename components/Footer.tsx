@@ -19,25 +19,14 @@ const DynamicIcon = ({ svgStr, className }: { svgStr?: string; className?: strin
   return null;
 };
 
-const FOOTER_LINK_MAP: Record<string, string> = {
-  '/': 'home',
-  '/about': 'about',
-  '/services': 'services',
-  '/services/tattooing': 'services',
-  '/services/piercing': 'services',
-  '/services/laser-removal': 'services',
-  '/team': 'team',
-  '/gallery': 'gallery',
-  '/blogs': 'blogs',
-  '/contact': 'contact',
-};
-
 interface FooterProps {
   data?: FooterVariant;
 }
 
 export default function Footer({ data }: FooterProps = {}) {
   const footerData = data || sharedData.Footer;
+  const linkMap = footerData.linkMap || {};
+  const homeTarget = linkMap['/'] || 'home';
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -88,8 +77,8 @@ export default function Footer({ data }: FooterProps = {}) {
           <motion.div variants={itemVariants} className="relative flex flex-col space-y-6 lg:pr-8">
             <div className="hidden lg:block absolute right-0 top-0 w-[1px] h-full bg-gradient-to-b from-transparent via-red-600/30 to-transparent shadow-[0_0_10px_rgba(220,38,38,0.2)]" />
             <a 
-              href="#home" 
-              onClick={(e) => scrollToSection(e, 'home')}
+              href={`#${homeTarget}`} 
+              onClick={(e) => scrollToSection(e, homeTarget)}
               className="flex-shrink-0 cursor-pointer"
             >
               <div className="relative w-[180px] h-[70px]">
@@ -129,7 +118,7 @@ export default function Footer({ data }: FooterProps = {}) {
             </div>
             <ul className="space-y-4">
               {footerData.quickLinks.links.map((link, idx) => {
-                const target = FOOTER_LINK_MAP[link.href] || link.href.replace('/', '');
+                const target = link.target || linkMap[link.href] || link.href.replace(/^(\/|#)/, '') || 'home';
                 return (
                   <li key={idx}>
                     <a 
@@ -155,7 +144,7 @@ export default function Footer({ data }: FooterProps = {}) {
             </div>
             <ul className="space-y-4">
               {footerData.services.links.map((link, idx) => {
-                const target = FOOTER_LINK_MAP[link.href] || 'services';
+                const target = link.target || linkMap[link.href] || 'services';
                 return (
                   <li key={idx}>
                     <a 

@@ -357,6 +357,18 @@
           "TattooFooter1": {
             "logo": "/logo.webp",
             "description": "At InkVibe Tattoo Studio, we turn your ideas into meaningful art. Our skilled artists create custom tattoos with precision, creativity and a passion for self-expression.",
+            "linkMap": {
+              "/": "home",
+              "/about": "about",
+              "/services": "services",
+              "/services/tattooing": "services",
+              "/services/piercing": "services",
+              "/services/laser-removal": "services",
+              "/team": "team",
+              "/gallery": "gallery",
+              "/blogs": "blogs",
+              "/contact": "contact"
+            },
             "social": [
               {
                 "name": "Instagram",
