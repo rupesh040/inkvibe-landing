@@ -6,7 +6,6 @@ import Process from "@/components/Process";
 import Gallery from "@/components/Gallery";
 import Team from "@/components/Team";
 import Testimonials from "@/components/Testimonials";
-import CTA from "@/components/CTA";
 import Blogs from "@/components/Blogs";
 import ContactSection from "@/components/ContactSection";
 import ContactMap from "@/components/ContactMap";
@@ -45,10 +44,6 @@ export default function Home() {
 
       <section id="testimonials" className="scroll-mt-24">
         <Testimonials data={homePageData.Testimonials} />
-      </section>
-
-      <section id="cta" className="scroll-mt-24">
-        <CTA data={homePageData.CTA} />
       </section>
 
       <section id="blogs" className="scroll-mt-24">
