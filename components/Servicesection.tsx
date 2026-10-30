@@ -94,7 +94,7 @@ export default function Services({ data: servicesData }: ServicesProps) {
   };
 
   return (
-    <section className="w-full bg-[#030303] text-white py-16 md:py-24 relative overflow-hidden">
+    <section className="w-full bg-[#030303] text-white py-10 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/2 h-[800px] bg-[url('/bg-texture.webp')] opacity-10 bg-cover bg-center mix-blend-overlay pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10">

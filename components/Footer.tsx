@@ -63,7 +63,7 @@ export default function Footer({ data }: FooterProps = {}) {
   };
 
   return (
-    <footer className="w-full bg-[#050505] text-white pt-16 relative">
+    <footer className="w-full bg-[#050505] text-white pt-10 relative">
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-600/80 to-transparent shadow-[0_0_15px_rgba(220,38,38,0.5)]" />
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 pb-12">

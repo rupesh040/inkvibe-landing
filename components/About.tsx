@@ -30,7 +30,7 @@ export default function About({ data: aboutData }: AboutProps) {
     : [];
 
   return (
-    <section className="w-full bg-[#050505] text-white py-16 md:py-24 relative overflow-hidden">
+    <section className="w-full bg-[#050505] text-white py-6  relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           

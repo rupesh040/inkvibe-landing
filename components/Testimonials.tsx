@@ -63,7 +63,7 @@ export default function Testimonials({ data: testimonialData }: TestimonialsProp
   const card3 = total > 2 ? testimonials[(activeIndex + 2) % total] : null;
 
   return (
-    <section className="w-full bg-[#050505] text-white py-12 md:py-16 relative overflow-hidden">
+    <section className="w-full bg-[#050505] text-white py-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10 relative z-10">
 
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-8">

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { BlogItem, BlogsVariant, BlogDetailSection } from '@/types';
@@ -12,38 +12,42 @@ interface BlogsProps {
   isBlogPage?: boolean;
 }
 
-const DEFAULT_CATEGORIES = [
-  'All',
-  'Tattoo Tips',
-  'Design Inspiration',
-  'Aftercare Guide',
-  'Tattoo Styles',
-  'Studio Updates',
-];
-
 const matchCategory = (blog: BlogItem, category: string) => {
   if (!category || category.toLowerCase() === 'all') return true;
   const cat = category.toLowerCase().trim();
   const tag = (blog.tag || '').toLowerCase().trim();
-  const title = (blog.title || '').toLowerCase().trim();
-
-  if (tag === cat) return true;
-  if (cat.includes(tag) || tag.includes(cat)) return true;
-  if (cat.includes('inspiration') && (tag.includes('inspiration') || title.includes('styles'))) return true;
-  if (cat.includes('aftercare') && (tag.includes('aftercare') || title.includes('aftercare') || tag.includes('tips'))) return true;
-  if (cat.includes('style') && (tag.includes('style') || title.includes('style') || tag.includes('inspiration'))) return true;
-  if (cat.includes('studio') && (tag.includes('studio') || tag.includes('life') || title.includes('session'))) return true;
-  if (cat.includes('tip') && (tag.includes('tip') || title.includes('tip'))) return true;
-
-  return false;
+  return tag === cat;
 };
 
 export default function Blogs({ data: blogsData }: BlogsProps) {
-  const categories = blogsData.categories && blogsData.categories.length > 0
-    ? blogsData.categories
-    : DEFAULT_CATEGORIES;
+  const categories = useMemo(() => {
+    const tagsFromBlogs = Array.from(
+      new Set(
+        (blogsData.blogs || [])
+          .map((b) => b.tag?.trim())
+          .filter((t): t is string => Boolean(t))
+      )
+    );
 
-  const [selectedCategory, setSelectedCategory] = useState<string>(categories[0] || 'All');
+    if (blogsData.categories && blogsData.categories.length > 0) {
+      const valid = blogsData.categories.filter((cat) => {
+        if (cat.toLowerCase() === 'all') return true;
+        return tagsFromBlogs.some((t) => t.toLowerCase() === cat.toLowerCase());
+      });
+      for (const tag of tagsFromBlogs) {
+        if (!valid.some((c) => c.toLowerCase() === tag.toLowerCase())) {
+          valid.push(tag);
+        }
+      }
+      if (valid.length > 0) return valid;
+    }
+
+    return ['All', ...tagsFromBlogs];
+  }, [blogsData.categories, blogsData.blogs]);
+
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const currentCategory = categories.includes(selectedCategory) ? selectedCategory : (categories[0] || 'All');
+
   const [activeBlog, setActiveBlog] = useState<{
     title: string;
     tag: string;
@@ -54,13 +58,37 @@ export default function Blogs({ data: blogsData }: BlogsProps) {
     author: string;
   } | null>(null);
 
-  const filteredBlogs = useMemo(() => {
-    if (selectedCategory === 'All') return blogsData.blogs;
-    const matched = blogsData.blogs.filter((blog: BlogItem) => matchCategory(blog, selectedCategory));
-    return matched.length > 0 ? matched : blogsData.blogs;
-  }, [blogsData.blogs, selectedCategory]);
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveBlog(null);
+      }
+    };
+    if (activeBlog) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeBlog]);
 
-  const displayedBlogs = filteredBlogs.slice(0, 3);
+  const displayedBlogs = useMemo(() => {
+    const list = currentCategory.toLowerCase() === 'all'
+      ? blogsData.blogs || []
+      : (blogsData.blogs || []).filter((blog: BlogItem) => matchCategory(blog, currentCategory));
+
+    const seen = new Set<string>();
+    return list.filter((blog) => {
+      const id = blog.link || blog.title;
+      if (!id || seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    });
+  }, [blogsData.blogs, currentCategory]);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -76,7 +104,7 @@ export default function Blogs({ data: blogsData }: BlogsProps) {
   };
 
   const handleOpenBlog = (blog: BlogItem) => {
-    const slug = blog.link ? blog.link.replace('/blogs/', '') : '';
+    const slug = blog.link ? blog.link.replace(/^\/?blogs\//, '') : '';
     const detail = blogDetailsMap[slug];
 
     setActiveBlog({
@@ -91,7 +119,7 @@ export default function Blogs({ data: blogsData }: BlogsProps) {
   };
 
   return (
-    <section className="bg-black py-16 md:py-24 px-6 md:px-12 lg:px-16 relative overflow-hidden">
+    <section className="bg-black py-6 px-6 md:px-12 lg:px-16 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
         <motion.div 
@@ -123,69 +151,138 @@ export default function Blogs({ data: blogsData }: BlogsProps) {
 
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
           {categories.map((cat) => (
-            <button
+            <motion.button
               key={cat}
+              type="button"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-all whitespace-nowrap cursor-pointer border ${
-                selectedCategory === cat
-                  ? 'bg-red-600 border-red-600 text-white shadow-[0_0_12px_rgba(220,38,38,0.5)]'
-                  : 'bg-transparent border-white/10 text-gray-400 hover:border-white/30 hover:text-white'
+              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-all whitespace-nowrap cursor-pointer border focus:outline-none focus:ring-2 focus:ring-red-600/50 ${
+                currentCategory === cat
+                  ? 'bg-red-600 border-red-600 text-white shadow-[0_0_14px_rgba(220,38,38,0.6)]'
+                  : 'bg-transparent border-white/10 text-gray-400 hover:border-white/30 hover:text-white hover:bg-white/[0.03]'
               }`}
             >
               {cat}
-            </button>
+            </motion.button>
           ))}
         </div>
 
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {displayedBlogs.map((blog: BlogItem, index: number) => (
-            <motion.article 
-              key={blog.link || index}
-              variants={itemVariants}
-              onClick={() => handleOpenBlog(blog)}
-              className="bg-[#080808] border border-white/10 hover:border-red-600/60 transition-all duration-500 flex flex-col group cursor-pointer rounded-sm overflow-hidden"
-            >
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
-                <Image
-                  src={blog.image}
-                  alt={blog.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
-                />
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="bg-red-600 text-white text-[11px] font-bold tracking-widest uppercase px-3 py-1">
-                    {blog.tag}
-                  </span>
-                </div>
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={currentCategory}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {displayedBlogs.length === 0 ? (
+              <div className="col-span-full py-16 text-center flex flex-col items-center justify-center">
+                <p className="text-gray-400 text-sm mb-4">No articles found in this category.</p>
+                <button
+                  type="button"
+                  onClick={() => setSelectedCategory('All')}
+                  className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-widest rounded-sm transition-colors cursor-pointer"
+                >
+                  View All Articles
+                </button>
               </div>
+            ) : (
+              displayedBlogs.map((blog: BlogItem, index: number) => (
+                <motion.article 
+                  key={blog.link || blog.title || index}
+                  layout
+                  initial={{ opacity: 0, y: 25, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 15, scale: 0.97 }}
+                  transition={{ 
+                    duration: 0.45, 
+                    delay: index * 0.08,
+                    ease: [0.22, 1, 0.36, 1] 
+                  }}
+                  whileHover={{ 
+                    y: -8,
+                    transition: { duration: 0.3, ease: 'easeOut' }
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleOpenBlog(blog)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleOpenBlog(blog);
+                    }
+                  }}
+                  aria-label={`Read article: ${blog.title}`}
+                  className="relative bg-[#090909] border border-white/10 hover:border-red-600/70 transition-all duration-500 flex flex-col group cursor-pointer rounded-sm overflow-hidden shadow-lg hover:shadow-[0_16px_40px_-8px_rgba(220,38,38,0.32)]"
+                >
+                  {/* Top glowing line accent */}
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-red-600 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out z-20 pointer-events-none" />
 
-              <div className="p-6 md:p-8 flex flex-col flex-grow">
-                <h3 className="text-xl md:text-2xl font-bold font-inter text-white mb-4 leading-snug group-hover:text-red-500 transition-colors">
-                  {blog.title}
-                </h3>
+                  {/* Corner accent marks */}
+                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-transparent group-hover:border-red-600 transition-colors duration-300 z-20 pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-transparent group-hover:border-red-600 transition-colors duration-300 z-20 pointer-events-none" />
 
-                <p className="text-neutral-400 text-sm leading-relaxed mb-8 flex-grow line-clamp-3">
-                  {blog.description}
-                </p>
+                  {/* Ambient background glow */}
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-red-950/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
 
-                <div className="inline-flex flex-col items-start mt-auto group/link">
-                  <span className="flex items-center text-white font-bold text-[13px] tracking-widest uppercase mb-1">
-                    {blogsData.readArticleText || "Read Article"}
-                    <ArrowRight className="w-3.5 h-3.5 text-red-600 ml-2 transition-transform duration-300 group-hover/link:translate-x-1" />
-                  </span>
-                  <span className="h-[2px] w-8 bg-red-600 transition-all duration-300 group-hover/link:w-full" />
-                </div>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
+                  {/* Media wrapper */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-950">
+                    <Image
+                      src={blog.image}
+                      alt={blog.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                    />
+
+                    {/* Image bottom vignette */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-black/30 opacity-70 group-hover:opacity-40 transition-opacity duration-500 z-10 pointer-events-none" />
+
+                    {/* Light sheen sweep reflection */}
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent z-10 pointer-events-none" />
+
+                    {/* Tag badge */}
+                    <div className="absolute top-4 left-4 z-20">
+                      <span className="inline-flex items-center bg-red-600 text-white text-[11px] font-bold tracking-widest uppercase px-3 py-1 shadow-[0_2px_10px_rgba(220,38,38,0.4)] group-hover:bg-red-500 group-hover:shadow-[0_0_15px_rgba(220,38,38,0.8)] transition-all duration-300">
+                        {blog.tag}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="p-6 md:p-8 flex flex-col flex-grow relative z-10">
+                    {/* Date metadata badge */}
+                    {blog.date && (
+                      <div className="flex items-center space-x-2 text-xs text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 mb-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-red-600 group-hover:scale-125 transition-transform duration-300 shrink-0" />
+                        <span className="uppercase tracking-widest font-mono text-[11px]">{blog.date}</span>
+                      </div>
+                    )}
+
+                    <h3 className="text-xl md:text-2xl font-bold font-inter text-white mb-3 leading-snug group-hover:text-red-500 transition-colors duration-300 line-clamp-2">
+                      {blog.title}
+                    </h3>
+
+                    <p className="text-neutral-400 group-hover:text-neutral-300 text-sm leading-relaxed mb-6 flex-grow line-clamp-3 transition-colors duration-300">
+                      {blog.description}
+                    </p>
+
+                    <div className="inline-flex flex-col items-start mt-auto">
+                      <span className="flex items-center text-white font-bold text-[13px] tracking-widest uppercase mb-1.5 group-hover:text-red-400 transition-colors duration-300">
+                        {blogsData.readArticleText || "Read Article"}
+                        <ArrowRight className="w-4 h-4 text-red-600 ml-2 transform group-hover:translate-x-2 transition-transform duration-300 ease-out" />
+                      </span>
+                      <span className="h-[2px] w-8 bg-red-600 transition-all duration-500 ease-out group-hover:w-full group-hover:bg-red-500 group-hover:shadow-[0_0_10px_rgba(220,38,38,0.8)]" />
+                    </div>
+                  </div>
+                </motion.article>
+              ))
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       <AnimatePresence>
@@ -194,15 +291,17 @@ export default function Blogs({ data: blogsData }: BlogsProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
             onClick={() => setActiveBlog(null)}
             className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 md:p-6 overflow-y-auto"
           >
             <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
+              initial={{ scale: 0.92, opacity: 0, y: 24 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.92, opacity: 0, y: 24 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-3xl max-h-[90vh] bg-[#0c0c0c] border border-red-600/40 rounded-sm overflow-y-auto p-6 md:p-10 shadow-[0_0_30px_rgba(220,38,38,0.25)] text-white my-auto"
+              className="relative w-full max-w-3xl max-h-[90vh] bg-[#0c0c0c] border border-red-600/40 rounded-sm overflow-y-auto p-6 md:p-10 shadow-[0_0_40px_rgba(220,38,38,0.3)] text-white my-auto"
             >
               <button
                 onClick={() => setActiveBlog(null)}

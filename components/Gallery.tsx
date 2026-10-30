@@ -64,7 +64,7 @@ export default function Gallery({ data }: { data: GalleryVariant }) {
   };
 
   return (
-    <section className="w-full bg-[#050505] py-16 md:py-24 relative overflow-hidden">
+    <section className="w-full bg-[#050505] py-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10">
         
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-8">
