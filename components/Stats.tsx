@@ -77,7 +77,7 @@ export default function Stats({ data }: StatsProps) {
       >
         <Image
           src={data.imageLeft}
-          alt="Tattoo machine"
+          alt={data.imageLeftAlt || "Tattoo machine"}
           fill
           sizes="(max-width: 768px) 75vw, 33vw"
           className="object-cover opacity-20 mix-blend-lighten md:opacity-60"
@@ -94,7 +94,7 @@ export default function Stats({ data }: StatsProps) {
       >
         <Image
           src={data.imageRight}
-          alt="Tattoo artist"
+          alt={data.imageRightAlt || "Tattoo artist"}
           fill
           sizes="(max-width: 768px) 75vw, 33vw"
           className="object-cover opacity-20 mix-blend-lighten md:opacity-60"

@@ -10,7 +10,6 @@ interface HeroProps {
 }
 
 export default function Hero({ data: heroData }: HeroProps) {
-  
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = heroData.slides;
 
@@ -29,8 +28,25 @@ export default function Hero({ data: heroData }: HeroProps) {
     return () => clearInterval(timer);
   }, [slides.length]);
 
+  const handleButtonClick = (e: React.MouseEvent<HTMLAnchorElement>, link?: string) => {
+    e.preventDefault();
+    if (!link) {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    const targetId = link.replace(/^(\/|#)/, '');
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="relative w-full h-[440px] overflow-hidden bg-black">
+    <div className="relative w-full h-[420px] overflow-hidden bg-black">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -45,8 +61,8 @@ export default function Hero({ data: heroData }: HeroProps) {
             backgroundSize: 'cover',
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
         </motion.div>
       </AnimatePresence>
 
@@ -65,7 +81,7 @@ export default function Hero({ data: heroData }: HeroProps) {
               <span className="text-gray-300 uppercase">{slides[currentSlide].subtitlePart2}</span>
             </div>
 
-            <h1 className="text-[clamp(2rem,4.5vw,4.2rem)] md:text-5xl lg:text-6xl font-bold font-sans uppercase leading-[1.05] tracking-wide mb-3 md:mb-5">
+            <h1 className="text-[clamp(2.4rem,5vw,5rem)] md:text-6xl lg:text-7xl font-bold font-sans uppercase leading-[1.02] tracking-wide mb-4 md:mb-6">
               <span className="text-white block">{slides[currentSlide].titleLine1}</span>
               <span className="text-red-600 block">{slides[currentSlide].titleLine2}</span>
             </h1>
@@ -82,12 +98,12 @@ export default function Hero({ data: heroData }: HeroProps) {
                 key={idx}
                 onClick={() => setCurrentSlide(idx)}
                 aria-label={`Go to slide ${idx + 1}`}
-                className="group py-2 focus:outline-none"
+                className="group py-2 focus:outline-none cursor-pointer"
               >
                 <div 
                   className={`h-1 transition-all duration-500 ease-out ${
                     idx === currentSlide 
-                      ? 'w-10 bg-red-600' 
+                      ? 'w-10 bg-red-600 shadow-[0_0_8px_rgba(220,38,38,0.8)]' 
                       : 'w-6 bg-white/30 group-hover:bg-white/60'
                   }`}
                 />
@@ -101,7 +117,7 @@ export default function Hero({ data: heroData }: HeroProps) {
               whileTap={{ scale: 0.9 }}
               onClick={prevSlide}
               aria-label="Previous slide"
-              className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-white/50 transition-colors"
+              className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-white/50 transition-colors cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </motion.button>
@@ -110,7 +126,7 @@ export default function Hero({ data: heroData }: HeroProps) {
               whileTap={{ scale: 0.9 }}
               onClick={nextSlide}
               aria-label="Next slide"
-              className="w-12 h-12 rounded-full border border-red-600 flex items-center justify-center text-red-500 hover:text-white hover:border-red-500 hover:bg-red-600/20 transition-colors"
+              className="w-12 h-12 rounded-full border border-red-600 flex items-center justify-center text-red-500 hover:text-white hover:border-red-500 hover:bg-red-600/20 transition-colors cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </motion.button>

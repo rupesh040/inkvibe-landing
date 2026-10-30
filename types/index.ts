@@ -10,6 +10,9 @@ export interface TopbarVariant {
   phone: string;
   email: string;
   social: SocialLink[];
+  followUsLabel?: string;
+  phoneAriaPrefix?: string;
+  emailAriaPrefix?: string;
 }
 
 export interface NavLink {
@@ -21,6 +24,10 @@ export interface NavLink {
 
 export interface HeaderVariant {
   logo: string;
+  logoAlt?: string;
+  homeAriaLabel?: string;
+  contactButtonHref?: string;
+  toggleNavAriaLabel?: string;
   links: NavLink[];
   button: string;
 }
@@ -58,6 +65,9 @@ export interface AboutVariant {
   image1: string;
   image2: string;
   image3: string;
+  image1Alt?: string;
+  image2Alt?: string;
+  image3Alt?: string;
 }
 
 export interface ServiceItem {
@@ -69,12 +79,52 @@ export interface ServiceItem {
   buttonLink: string;
 }
 
+export interface ServicesModalLabels {
+  serviceBadge?: string;
+  clickToView?: string;
+  highlightsTitle?: string;
+  portfolioSubtitle?: string;
+  consultationPrompt?: string;
+  closeButton?: string;
+  bookButton?: string;
+}
+
 export interface ServicesVariant {
   subtitle: string;
   titleLine1: string;
   titleLine2: string;
   description: string;
   services: ServiceItem[];
+  modalLabels?: ServicesModalLabels;
+}
+
+export interface ServiceDetailFeature {
+  icon: string;
+  title: string;
+}
+
+export interface ServiceDetailData {
+  about?: {
+    subtitle?: string;
+    titleLine1?: string;
+    titleLine2?: string;
+    description1?: string;
+    description2?: string;
+    image?: string;
+    features?: ServiceDetailFeature[];
+  };
+  whyChoose?: {
+    subtitle?: string;
+    titleLine1?: string;
+    titleLine2?: string;
+    description?: string;
+    list?: string[];
+  };
+  ourWork?: {
+    subtitle?: string;
+    title?: string;
+    images?: string[];
+  };
 }
 
 export interface StatItem {
@@ -86,6 +136,8 @@ export interface StatItem {
 export interface StatsVariant {
   imageLeft: string;
   imageRight: string;
+  imageLeftAlt?: string;
+  imageRightAlt?: string;
   stats: StatItem[];
 }
 
@@ -104,18 +156,14 @@ export interface ProcessVariant {
   features: string[];
   steps: ProcessStep[];
   backgroundImage: string;
+  backgroundImageAlt?: string;
 }
 
 export interface TeamSocialLink {
   platform: string;
   url: string;
   svg?: string;
-}
-
-export interface TeamFeature {
-  icon: string;
-  title: string;
-  subtitle: string;
+  ariaLabel?: string;
 }
 
 export interface TeamMember {
@@ -123,29 +171,36 @@ export interface TeamMember {
   name: string;
   role: string;
   image: string;
+  imageAlt?: string;
   socials: TeamSocialLink[];
-  experience?: string;
-  location?: string;
-  instagramHandle?: string;
-  biography?: string;
-  aboutSubtitle?: string;
-  aboutTitleLine1?: string;
-  aboutTitleLine2?: string;
-  aboutText?: string[];
-  quote?: string;
-  quoteImage?: string;
-  features?: TeamFeature[];
+}
+
+export interface TeamPagination {
+  prevAriaLabel?: string;
+  nextAriaLabel?: string;
+  pageAriaPrefix?: string;
+  prevSvg?: string;
+  nextSvg?: string;
 }
 
 export interface TeamVariant {
   subtitle: string;
+  subtitleSvg?: string;
   titleLine1: string;
   titleLine2: string;
   description: string;
   itemsPerPage?: number;
+  pagination?: TeamPagination;
+  prevSvg?: string;
+  nextSvg?: string;
+  prevAriaLabel?: string;
+  nextAriaLabel?: string;
+  pageAriaPrefix?: string;
+  socialIcons?: Record<string, string>;
   members: TeamMember[];
   buttonText?: string;
   buttonLink?: string;
+  buttonSvg?: string;
 }
 
 export interface CTAButton {
@@ -177,9 +232,51 @@ export interface BlogsVariant {
   subtitle: string;
   titleLine1: string;
   titleLine2: string;
+  description?: string;
+  categories?: string[];
+  readArticleText?: string;
+  closeButton?: string;
+  writtenByLabel?: string;
+  defaultAuthor?: string;
   blogs: BlogItem[];
   buttonText: string;
   buttonLink: string;
+}
+
+export interface BlogDetailSection {
+  heading?: string;
+  content?: string;
+  number?: string;
+  title?: string;
+  text?: string;
+}
+
+export interface BlogDetailItem {
+  title?: string;
+  image?: string;
+  description?: string;
+  sections?: BlogDetailSection[];
+  author?: string;
+  sidebar?: {
+    recentPosts?: Array<{
+      title: string;
+      date: string;
+      image: string;
+      link: string;
+    }>;
+    categories?: Array<{
+      name: string;
+      count: number;
+      link: string;
+    }>;
+    cta?: {
+      titleLine1: string;
+      titleLine2: string;
+      text: string;
+      image: string;
+      link: string;
+    };
+  };
 }
 
 export interface Testimonial {
@@ -209,6 +306,8 @@ export interface FooterContact {
 
 export interface FooterVariant {
   logo: string;
+  logoAlt?: string;
+  scrollToTopAriaLabel?: string;
   description: string;
   social: SocialLink[];
   quickLinks: {
@@ -227,141 +326,6 @@ export interface FooterVariant {
     copyright: string;
     links: FooterLink[];
   };
-}
-
-export interface PageBannerVariant {
-  image: string;
-  pages: {
-    [key: string]: {
-      title: string;
-      breadcrumb: string[];
-    };
-  };
-}
-
-export interface ContentData {
-  Tattoo: {
-    templateComponents: {
-      "template-1": {
-        shared: {
-          Topbar: string;
-          Header: string;
-          Footer: string;
-          PageBanner: string;
-          Contact?: string;
-          Appointment?: string;
-          AppointmentFeatures?: string;
-        };
-        pages: {
-          home: {
-            Hero: string;
-            About: string;
-            Services: string;
-            Process: string;
-            Team: string;
-            Testimonials: string;
-            Stats: string;
-            CTA: string;
-            Blogs: string;
-          };
-          team?: {
-            Team: string;
-          };
-          about?: {
-            About: string;
-            Process: string;
-            Stats: string;
-            CTA: string;
-          };
-          gallery?: {
-            Gallery: string;
-          };
-        }
-      }
-    };
-    sections: {
-      Topbar: {
-        variants: {
-          [key: string]: TopbarVariant;
-        }
-      };
-      Header: {
-        variants: {
-          [key: string]: HeaderVariant;
-        }
-      };
-      Hero: {
-        variants: {
-          [key: string]: HeroVariant;
-        }
-      };
-      About: {
-        variants: {
-          [key: string]: AboutVariant;
-        }
-      };
-      Services: {
-        variants: {
-          [key: string]: ServicesVariant;
-        }
-      };
-      Process: {
-        variants: {
-          [key: string]: ProcessVariant;
-        }
-      };
-      Team: {
-        variants: {
-          [key: string]: TeamVariant;
-        }
-      };
-      Stats: {
-        variants: {
-          [key: string]: StatsVariant;
-        }
-      };
-      Testimonials: {
-        variants: {
-          [key: string]: TestimonialVariant;
-        }
-      };
-      CTA: {
-        variants: {
-          [key: string]: CTAVariant;
-        }
-      };
-      Blogs: {
-        variants: {
-          [key: string]: BlogsVariant;
-        }
-      };
-      Footer: {
-        variants: {
-          [key: string]: FooterVariant;
-        }
-      };
-      PageBanner: {
-        variants: {
-          [key: string]: PageBannerVariant;
-        }
-      };
-      Contact?: {
-        variants: {
-          [key: string]: ContactVariant;
-        }
-      };
-      Appointment?: {
-        variants: {
-          [key: string]: AppointmentVariant;
-        }
-      };
-      AppointmentFeatures?: {
-        variants: {
-          [key: string]: AppointmentFeaturesVariant;
-        }
-      };
-    };
-  }
 }
 
 export interface ContactField {
@@ -396,43 +360,71 @@ export interface ContactVariant {
   submitButton: string;
   successTitle: string;
   successMessage: string;
+  successCloseButton?: string;
 }
 
-export interface AppointmentFeature {
-  icon: string;
+export interface GalleryVariant {
+  subtitle?: string;
+  titleLine1?: string;
+  titleLine2?: string;
+  description?: string;
+  viewArtworkLabel?: string;
+  itemsPerPage?: number;
+  images: string[];
+}
+
+export interface SiteMetadata {
   title: string;
   description: string;
+  favicon?: string;
 }
 
-export interface AppointmentVariant {
-  subtitle: string;
-  titleLine1: string;
-  titleLine2: string;
-  description: string;
-  features: AppointmentFeature[];
-  formSubtitle: string;
-  formTitleLine1: string;
-  formTitleLine2: string;
-  formDescription: string;
-  fields: {
-    name: ContactField;
-    phone: ContactField;
-    email: ContactField;
-    time: ContactField;
-    date: ContactField;
-    artist: ContactField;
-    service: ContactField;
-    message: ContactField;
+export interface ContentData {
+  Tattoo: {
+    siteMetadata?: SiteMetadata;
+    templateComponents: {
+      "template-1": {
+        shared: {
+          Topbar: string;
+          Header: string;
+          Footer: string;
+          Contact: string;
+        };
+        pages: {
+          home: {
+            Hero: string;
+            About: string;
+            Services: string;
+            Process: string;
+            Team: string;
+            Testimonials: string;
+            Stats: string;
+            CTA: string;
+            Blogs: string;
+          };
+          gallery: {
+            Gallery: string;
+          };
+        };
+      };
+    };
+    sections: {
+      Topbar: { variants: Record<string, TopbarVariant> };
+      Header: { variants: Record<string, HeaderVariant> };
+      Hero: { variants: Record<string, HeroVariant> };
+      About: { variants: Record<string, AboutVariant> };
+      Services: { variants: Record<string, ServicesVariant> };
+      Process: { variants: Record<string, ProcessVariant> };
+      Team: { variants: Record<string, TeamVariant> };
+      Stats: { variants: Record<string, StatsVariant> };
+      Testimonials: { variants: Record<string, TestimonialVariant> };
+      CTA: { variants: Record<string, CTAVariant> };
+      Blogs: { variants: Record<string, BlogsVariant> };
+      Footer: { variants: Record<string, FooterVariant> };
+      Gallery: { variants: Record<string, GalleryVariant> };
+      Contact: { variants: Record<string, ContactVariant> };
+      ServiceDetails: { variants: Record<string, Record<string, ServiceDetailData>> };
+      BlogDetails: { variants: Record<string, Record<string, BlogDetailItem>> };
+    };
   };
-  submitButton: string;
-  successTitle: string;
-  successMessage: string;
-}
-
-export interface AppointmentFeaturesVariant {
-  features: {
-    icon: string;
-    title: string;
-    description: string;
-  }[];
 }

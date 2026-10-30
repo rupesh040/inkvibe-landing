@@ -1,19 +1,18 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { motion, Variants } from 'framer-motion';
-import { BlogItem, BlogsVariant } from '@/types';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { BlogItem, BlogsVariant, BlogDetailSection } from '@/types';
+import { X, ArrowRight } from 'lucide-react';
+import { blogDetailsMap } from '@/data';
 
 interface BlogsProps {
   data: BlogsVariant;
   isBlogPage?: boolean;
 }
 
-const CATEGORIES = [
+const DEFAULT_CATEGORIES = [
   'All',
   'Tattoo Tips',
   'Design Inspiration',
@@ -39,46 +38,29 @@ const matchCategory = (blog: BlogItem, category: string) => {
   return false;
 };
 
-function BlogsContent({ data: blogsData, isBlogPage = false, categoryParam = '' }: BlogsProps & { categoryParam?: string }) {
-  const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState<string>(categoryParam || 'All');
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+export default function Blogs({ data: blogsData }: BlogsProps) {
+  const categories = blogsData.categories && blogsData.categories.length > 0
+    ? blogsData.categories
+    : DEFAULT_CATEGORIES;
 
-  useEffect(() => {
-    if (categoryParam) {
-      setSelectedCategory(categoryParam);
-      setCurrentPage(1);
-    } else {
-      setSelectedCategory('All');
-    }
-  }, [categoryParam]);
-
-  const handleSelectCategory = (cat: string) => {
-    setSelectedCategory(cat);
-    setCurrentPage(1);
-    if (isBlogPage) {
-      if (cat === 'All') {
-        router.push('/blogs', { scroll: false });
-      } else {
-        router.push(`/blogs?category=${encodeURIComponent(cat)}`, { scroll: false });
-      }
-    }
-  };
+  const [selectedCategory, setSelectedCategory] = useState<string>(categories[0] || 'All');
+  const [activeBlog, setActiveBlog] = useState<{
+    title: string;
+    tag: string;
+    date: string;
+    image: string;
+    description: string;
+    sections: BlogDetailSection[];
+    author: string;
+  } | null>(null);
 
   const filteredBlogs = useMemo(() => {
-    if (!isBlogPage || selectedCategory === 'All') {
-      return blogsData.blogs;
-    }
+    if (selectedCategory === 'All') return blogsData.blogs;
     const matched = blogsData.blogs.filter((blog: BlogItem) => matchCategory(blog, selectedCategory));
     return matched.length > 0 ? matched : blogsData.blogs;
-  }, [blogsData.blogs, selectedCategory, isBlogPage]);
+  }, [blogsData.blogs, selectedCategory]);
 
-  const totalPages = Math.ceil(filteredBlogs.length / itemsPerPage) || 1;
-
-  const currentBlogs = isBlogPage
-    ? filteredBlogs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-    : blogsData.blogs.slice(0, 3);
+  const displayedBlogs = filteredBlogs.slice(0, 3);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -93,192 +75,204 @@ function BlogsContent({ data: blogsData, isBlogPage = false, categoryParam = '' 
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 200, damping: 20 } },
   };
 
+  const handleOpenBlog = (blog: BlogItem) => {
+    const slug = blog.link ? blog.link.replace('/blogs/', '') : '';
+    const detail = blogDetailsMap[slug];
+
+    setActiveBlog({
+      title: blog.title,
+      tag: blog.tag,
+      date: blog.date,
+      image: detail?.image || blog.image,
+      description: detail?.description || blog.description,
+      sections: detail?.sections || [],
+      author: detail?.author || blogsData.defaultAuthor || 'InkVibe Master Artist',
+    });
+  };
+
   return (
-    <section className="bg-black py-10 px-6 md:px-12 lg:px-18">
+    <section className="bg-black py-16 md:py-24 px-6 md:px-12 lg:px-16 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
+        
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="mb-10"
+          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-8"
         >
-          <motion.div variants={itemVariants} className="flex items-center gap-4 mb-2">
-            <span className="text-red-600 font-bold tracking-widest text-xs md:text-sm uppercase">
-              {blogsData.subtitle}
-            </span>
-            <div className="h-[1px] w-12 md:w-16 bg-red-600"></div>
-          </motion.div>
-          <motion.h2 variants={itemVariants} className="text-[clamp(2.35rem,5vw,5.2rem)] md:text-6xl font-bold font-sans text-white uppercase tracking-wider">
-            {blogsData.titleLine1} <span className="text-red-600">{blogsData.titleLine2}</span>
-          </motion.h2>
-
-          {isBlogPage && (
-            <div className="mt-8 flex flex-wrap items-center gap-2 sm:gap-3">
-              {CATEGORIES.map((cat) => {
-                const isActive = selectedCategory.toLowerCase() === cat.toLowerCase();
-                return (
-                  <button
-                    key={cat}
-                    type="button"
-                    onClick={() => handleSelectCategory(cat)}
-                    className={`px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-wider transition-all duration-300 rounded-sm cursor-pointer border ${
-                      isActive
-                        ? 'bg-red-600 text-white border-red-600 shadow-[0_0_15px_rgba(220,38,38,0.5)]'
-                        : 'bg-[#0a0a0a] text-gray-400 border-white/10 hover:border-red-600/60 hover:text-white'
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-
-          {isBlogPage && selectedCategory !== 'All' && (
-            <div className="mt-4 flex items-center gap-3">
-              <span className="text-xs tracking-wider uppercase text-gray-400">
-                Filtered by category: <strong className="text-red-500">{selectedCategory}</strong> ({filteredBlogs.length} posts)
-              </span>
-              <button
-                type="button"
-                onClick={() => handleSelectCategory('All')}
-                className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-white underline cursor-pointer"
-              >
-                <X className="w-3 h-3" /> Clear filter
-              </button>
-            </div>
+          <div className="flex flex-col">
+            <motion.div variants={itemVariants} className="flex items-center space-x-4 mb-4">
+              <h3 className="text-red-600 font-bold tracking-[0.2em] text-sm uppercase">
+                {blogsData.subtitle || "OUR ARTICLES"}
+              </h3>
+              <div className="w-16 h-[2px] bg-red-600" />
+            </motion.div>
+            <motion.h2 variants={itemVariants} className="text-[clamp(2.35rem,5vw,5.2rem)] md:text-6xl font-bold font-sans uppercase leading-[1.05] tracking-wide">
+              <span className="text-white mr-4">{blogsData.titleLine1 || "INK STORIES &"}</span>
+              <span className="text-red-600">{blogsData.titleLine2 || "AFTERCARE"}</span>
+            </motion.h2>
+          </div>
+          
+          {blogsData.description && (
+            <motion.p variants={itemVariants} className="text-gray-400 text-sm md:text-base leading-relaxed max-w-md">
+              {blogsData.description}
+            </motion.p>
           )}
         </motion.div>
+
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-all whitespace-nowrap cursor-pointer border ${
+                selectedCategory === cat
+                  ? 'bg-red-600 border-red-600 text-white shadow-[0_0_12px_rgba(220,38,38,0.5)]'
+                  : 'bg-transparent border-white/10 text-gray-400 hover:border-white/30 hover:text-white'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
 
         <motion.div 
-          key={`${selectedCategory}-${currentPage}`}
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {currentBlogs.map((blog: BlogItem, index: number) => (
-            <Link href={blog.link} key={index} className="block group cursor-pointer">
-              <motion.article 
-                variants={itemVariants}
-                className="h-full bg-[#0a0a0a] transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-[0_15px_30px_-10px_rgba(220,38,38,0.2)] flex flex-col border border-white/5 group-hover:border-red-600/40"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <Image 
-                    src={blog.image} 
-                    alt={blog.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110" 
-                  />
+          {displayedBlogs.map((blog: BlogItem, index: number) => (
+            <motion.article 
+              key={blog.link || index}
+              variants={itemVariants}
+              onClick={() => handleOpenBlog(blog)}
+              className="bg-[#080808] border border-white/10 hover:border-red-600/60 transition-all duration-500 flex flex-col group cursor-pointer rounded-sm overflow-hidden"
+            >
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
+                <Image
+                  src={blog.image}
+                  alt={blog.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                />
+                <div className="absolute top-4 left-4 z-10">
+                  <span className="bg-red-600 text-white text-[11px] font-bold tracking-widest uppercase px-3 py-1">
+                    {blog.tag}
+                  </span>
                 </div>
-                <div className="p-6 md:p-8 flex-grow flex flex-col">
-                  <div className="flex items-center gap-3 mb-5 text-[11px] font-bold tracking-widest">
-                    <span className="bg-red-600 text-white px-2 py-1 uppercase">{blog.tag}</span>
-                    <div className="flex items-center gap-3 text-neutral-400">
-                      <span className="w-px h-3 bg-neutral-600"></span>
-                      {blog.date}
-                    </div>
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-bold font-inter text-white mb-4 leading-snug group-hover:text-red-500 transition-colors">
-                    {blog.title}
-                  </h3>
-                  <p className="text-neutral-400 text-sm leading-relaxed mb-8 flex-grow">
-                    {blog.description}
-                  </p>
-                  <div className="inline-flex flex-col items-start mt-auto group/link">
-                    <span className="flex items-center text-white font-bold text-[13px] tracking-widest uppercase mb-1">
-                      {(blogsData as any).readMoreText || 'Read More'} 
-                      <span className="text-red-600 ml-2 transition-transform duration-300 group-hover/link:translate-x-1">→</span>
-                    </span>
-                    <span className="h-[2px] w-8 bg-red-600 transition-all duration-300 group-hover/link:w-full"></span>
-                  </div>
+              </div>
+
+              <div className="p-6 md:p-8 flex flex-col flex-grow">
+                <h3 className="text-xl md:text-2xl font-bold font-inter text-white mb-4 leading-snug group-hover:text-red-500 transition-colors">
+                  {blog.title}
+                </h3>
+
+                <p className="text-neutral-400 text-sm leading-relaxed mb-8 flex-grow line-clamp-3">
+                  {blog.description}
+                </p>
+
+                <div className="inline-flex flex-col items-start mt-auto group/link">
+                  <span className="flex items-center text-white font-bold text-[13px] tracking-widest uppercase mb-1">
+                    {blogsData.readArticleText || "Read Article"}
+                    <ArrowRight className="w-3.5 h-3.5 text-red-600 ml-2 transition-transform duration-300 group-hover/link:translate-x-1" />
+                  </span>
+                  <span className="h-[2px] w-8 bg-red-600 transition-all duration-300 group-hover/link:w-full" />
                 </div>
-              </motion.article>
-            </Link>
+              </div>
+            </motion.article>
           ))}
         </motion.div>
+      </div>
 
-        {isBlogPage ? (
-          totalPages > 1 && (
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center justify-center space-x-2 mt-16"
-            >
-              <button
-                type="button"
-                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                disabled={currentPage === 1}
-                aria-label="Previous page"
-                className="w-10 h-10 flex items-center justify-center text-sm font-medium transition-colors border bg-transparent border-white/10 text-gray-400 hover:border-white/30 hover:text-white disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  type="button"
-                  onClick={() => setCurrentPage(page)}
-                  aria-label={`Page ${page}`}
-                  className={`w-10 h-10 flex items-center justify-center text-sm font-medium transition-colors border cursor-pointer ${
-                    currentPage === page
-                      ? 'bg-red-600 border-red-600 text-white shadow-[0_0_12px_rgba(220,38,38,0.5)]'
-                      : 'bg-transparent border-white/10 text-gray-400 hover:border-white/30 hover:text-white'
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
-              <button
-                type="button"
-                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                disabled={currentPage === totalPages}
-                aria-label="Next page"
-                className="w-10 h-10 flex items-center justify-center text-sm font-medium transition-colors border bg-transparent border-white/10 text-gray-400 hover:border-white/30 hover:text-white disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </motion.div>
-          )
-        ) : (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="flex justify-center mt-16"
+      <AnimatePresence>
+        {activeBlog && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveBlog(null)}
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 md:p-6 overflow-y-auto"
           >
-            <Link
-              href="/blogs"
-              className="group relative inline-flex items-center justify-center bg-red-600 text-white font-bold py-4 px-10 uppercase tracking-widest text-sm transition-all duration-300 ease-in-out hover:bg-red-700 hover:scale-105 hover:shadow-[0_0_25px_rgba(220,38,38,0.5)] cursor-pointer"
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-3xl max-h-[90vh] bg-[#0c0c0c] border border-red-600/40 rounded-sm overflow-y-auto p-6 md:p-10 shadow-[0_0_30px_rgba(220,38,38,0.25)] text-white my-auto"
             >
-              <span className="relative z-10 flex items-center">
-                {blogsData.buttonText || "View Blog"}
-                <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
-              </span>
-            </Link>
+              <button
+                onClick={() => setActiveBlog(null)}
+                aria-label={blogsData.closeButton ? `${blogsData.closeButton} article` : "Close article"}
+                className="absolute top-6 right-6 w-9 h-9 rounded-full border border-white/20 hover:border-red-600 text-gray-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer z-20"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="flex items-center space-x-3 mb-4">
+                <span className="bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1">
+                  {activeBlog.tag}
+                </span>
+              </div>
+
+              <h2 className="text-2xl md:text-3xl font-bold font-sans uppercase tracking-wide text-white mb-6">
+                {activeBlog.title}
+              </h2>
+
+              <div className="relative w-full aspect-[16/9] mb-6 overflow-hidden rounded-sm border border-white/10">
+                <Image
+                  src={activeBlog.image}
+                  alt={activeBlog.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              <p className="text-gray-300 text-base leading-relaxed mb-6 font-inter">
+                {activeBlog.description}
+              </p>
+
+              {activeBlog.sections && activeBlog.sections.length > 0 && (
+                <div className="space-y-6 mt-6 pt-6 border-t border-white/10">
+                  {activeBlog.sections.map((section: BlogDetailSection, idx: number) => {
+                    const heading = section.heading || (section.number && section.title ? `${section.number}. ${section.title}` : section.title);
+                    const content = section.content || section.text;
+                    return (
+                      <div key={idx} className="space-y-2">
+                        {heading && (
+                          <h4 className="text-lg font-bold uppercase tracking-wide text-red-500">
+                            {heading}
+                          </h4>
+                        )}
+                        {content && (
+                          <p className="text-gray-400 text-sm leading-relaxed">
+                            {content}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+                <span className="text-xs text-gray-400">
+                  {blogsData.writtenByLabel || "Written by"} <strong className="text-white">{activeBlog.author}</strong>
+                </span>
+                <button
+                  onClick={() => setActiveBlog(null)}
+                  className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-widest rounded-sm transition-colors cursor-pointer"
+                >
+                  {blogsData.closeButton || "Close"}
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </section>
   );
-}
-
-function BlogsWithParams(props: BlogsProps) {
-  const searchParams = useSearchParams();
-  const categoryParam = searchParams.get('category') || '';
-  return <BlogsContent {...props} categoryParam={categoryParam} />;
-}
-
-export default function Blogs(props: BlogsProps) {
-  if (props.isBlogPage) {
-    return (
-      <React.Suspense fallback={<BlogsContent {...props} categoryParam="" />}>
-        <BlogsWithParams {...props} />
-      </React.Suspense>
-    );
-  }
-  return <BlogsContent {...props} categoryParam="" />;
 }

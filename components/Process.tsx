@@ -37,7 +37,7 @@ export default function Process({ data: processData }: ProcessProps) {
       >
         <Image 
           src={processData.backgroundImage} 
-          alt="Process Background" 
+          alt={processData.backgroundImageAlt || "Process Background"} 
           fill 
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover opacity-20 md:opacity-30 mix-blend-lighten" 

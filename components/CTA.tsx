@@ -10,7 +10,6 @@ interface CTAProps {
 }
 
 export default function CTA({ data: ctaData }: CTAProps) {
-
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -22,6 +21,11 @@ export default function CTA({ data: ctaData }: CTAProps) {
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 200, damping: 20 } },
+  };
+
+  const scrollToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -79,17 +83,17 @@ export default function CTA({ data: ctaData }: CTAProps) {
 
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-6">
             {ctaData.buttons.map((btn: CTAButton, idx: number) => {
-              
               if (btn.style === 'solid') {
                 return (
                   <a 
                     key={idx}
-                    href={btn.link} 
-                    className="relative group bg-red-600 text-white px-8 py-5 uppercase font-bold text-sm tracking-widest flex items-center justify-center overflow-hidden w-full sm:w-auto"
+                    href="#contact"
+                    onClick={scrollToContact}
+                    className="relative group bg-red-600 text-white px-8 py-5 uppercase font-bold text-sm tracking-widest flex items-center justify-center overflow-hidden w-full sm:w-auto cursor-pointer shadow-[0_0_20px_rgba(220,38,38,0.4)]"
                     style={{ clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)' }}
                   >
                     <span className="relative z-10 flex items-center">
-                      {btn.text} <span className="ml-3 font-normal text-lg group-hover:translate-x-1 transition-transform duration-300">→</span>
+                      {btn.text || "CONTACT US"} <span className="ml-3 font-normal text-lg group-hover:translate-x-1 transition-transform duration-300">→</span>
                     </span>
                     <div className="absolute inset-0 bg-red-700 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out" />
                   </a>
@@ -103,11 +107,12 @@ export default function CTA({ data: ctaData }: CTAProps) {
                     style={{ clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)' }} 
                   />
                   <a 
-                    href={btn.link} 
-                    className="relative bg-black text-white px-8 py-5 uppercase font-bold text-sm tracking-widest flex items-center justify-center transition-colors" 
+                    href="#contact" 
+                    onClick={scrollToContact}
+                    className="relative bg-black text-white px-8 py-5 uppercase font-bold text-sm tracking-widest flex items-center justify-center transition-colors cursor-pointer" 
                     style={{ clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)' }}
                   >
-                    {btn.text} <span className="ml-3 font-normal text-lg transition-transform group-hover:translate-x-1 duration-300">→</span>
+                    {btn.text || "CONTACT US"} <span className="ml-3 font-normal text-lg transition-transform group-hover:translate-x-1 duration-300">→</span>
                   </a>
                 </div>
               );

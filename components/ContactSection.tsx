@@ -4,21 +4,14 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, ArrowRight, Send } from 'lucide-react';
-import { ContactVariant, ContentData } from '@/types';
-import contentData from '@/data/content.json';
+import { ContactVariant } from '@/types';
+import { sharedData } from '@/data';
 
-const typedData = contentData as unknown as ContentData;
-const shared = typedData.Tattoo.templateComponents['template-1'].shared;
-const footer = typedData.Tattoo.sections.Footer.variants[shared.Footer];
+const footer = sharedData.Footer;
 
 const DynamicIcon = ({ svgStr, className }: { svgStr?: string; className?: string }) => {
   if (!svgStr) return null;
   return <div dangerouslySetInnerHTML={{ __html: svgStr }} className={`[&>svg]:w-full [&>svg]:h-full ${className}`} />;
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] } }),
 };
 
 interface ContactSectionProps { data: ContactVariant; }
@@ -61,15 +54,15 @@ export default function ContactSection({ data }: ContactSectionProps) {
 
             <div className="relative z-10 flex flex-col h-full justify-between py-10 px-6 md:px-10 space-y-10">
               <div className="space-y-4">
-                <motion.div custom={0}  className="flex items-center space-x-3">
+                <motion.div custom={0} className="flex items-center space-x-3">
                   <span className="text-red-600 font-bold tracking-[0.2em] text-xs uppercase">{data.subtitle}</span>
                   <div className="w-12 h-px bg-red-600/50" />
                 </motion.div>
-                <motion.h2 custom={1}  className="text-[clamp(2.35rem,5vw,5.2rem)] md:text-6xl font-bold font-sans uppercase leading-[1.05] tracking-wide">
+                <motion.h2 custom={1} className="text-[clamp(2.35rem,5vw,5.2rem)] md:text-6xl font-bold font-sans uppercase leading-[1.05] tracking-wide">
                   <span className="text-white">{data.titleLine1}</span><br />
                   <span className="text-red-600">{data.titleLine2}</span>
                 </motion.h2>
-                <motion.p custom={2}  className="text-gray-400 text-sm md:text-base leading-relaxed max-w-md">
+                <motion.p custom={2} className="text-gray-400 text-sm md:text-base leading-relaxed max-w-md">
                   {data.description}
                 </motion.p>
               </div>
@@ -109,7 +102,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
                     </motion.div>
                   );
                 })}
-                <motion.div custom={6}  className="flex flex-col">
+                <motion.div custom={6} className="flex flex-col">
                   <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-red-600 mb-3">{data.followUsLabel}</span>
                   <div className="flex items-center gap-3">
                     {footer.social.map((s, i) => (
@@ -194,7 +187,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
                       className="bg-[#111] border border-white/10 text-white text-sm px-4 py-3 placeholder:text-gray-600 focus:outline-none focus:border-red-600 transition-colors resize-none" />
                   </div>
                   <motion.button type="submit" id="contact-submit" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                    className="relative w-full overflow-hidden group bg-red-600 text-white text-sm font-bold tracking-wider uppercase px-8 py-4 flex items-center justify-center gap-3 mt-2">
+                    className="relative w-full overflow-hidden group bg-red-600 text-white text-sm font-bold tracking-wider uppercase px-8 py-4 flex items-center justify-center gap-3 mt-2 cursor-pointer shadow-[0_0_15px_rgba(220,38,38,0.4)]">
                     <div className="absolute inset-0 bg-red-700 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out" />
                     <span className="relative z-10 flex items-center gap-3">
                       {data.submitButton}
@@ -238,10 +231,10 @@ export default function ContactSection({ data }: ContactSectionProps) {
           </p>
           <button 
             onClick={() => setSubmitted(false)}
-            className="w-full relative overflow-hidden group bg-red-600 text-white text-sm font-bold tracking-wider uppercase px-8 py-3"
+            className="w-full relative overflow-hidden group bg-red-600 text-white text-sm font-bold tracking-wider uppercase px-8 py-3 cursor-pointer"
           >
             <div className="absolute inset-0 bg-red-700 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out" />
-            <span className="relative z-10">Close</span>
+            <span className="relative z-10">{data.successCloseButton || "Close"}</span>
           </button>
         </motion.div>
       </div>

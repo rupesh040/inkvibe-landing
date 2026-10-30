@@ -1,14 +1,11 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight, MapPin, Phone, Mail, ChevronUp } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
-import contentData from '@/data/content.json';
-import { ContentData } from '@/types';
-
-const typedContentData = contentData as ContentData;
+import { sharedData } from '@/data';
+import { FooterVariant } from '@/types';
 
 const DynamicIcon = ({ svgStr, className }: { svgStr?: string; className?: string }) => {
   if (svgStr) {
@@ -22,19 +19,52 @@ const DynamicIcon = ({ svgStr, className }: { svgStr?: string; className?: strin
   return null;
 };
 
-export default function Footer() {
-  const shared = typedContentData.Tattoo.templateComponents["template-1"].shared;
-  const footerData = typedContentData.Tattoo.sections.Footer.variants[shared.Footer];
+const FOOTER_LINK_MAP: Record<string, string> = {
+  '/': 'home',
+  '/about': 'about',
+  '/services': 'services',
+  '/services/tattooing': 'services',
+  '/services/piercing': 'services',
+  '/services/laser-removal': 'services',
+  '/team': 'team',
+  '/gallery': 'gallery',
+  '/blogs': 'blogs',
+  '/contact': 'contact',
+};
+
+interface FooterProps {
+  data?: FooterVariant;
+}
+
+export default function Footer({ data }: FooterProps = {}) {
+  const footerData = data || sharedData.Footer;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      const navOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.3 },
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
     },
   };
 
@@ -57,17 +87,21 @@ export default function Footer() {
         >
           <motion.div variants={itemVariants} className="relative flex flex-col space-y-6 lg:pr-8">
             <div className="hidden lg:block absolute right-0 top-0 w-[1px] h-full bg-gradient-to-b from-transparent via-red-600/30 to-transparent shadow-[0_0_10px_rgba(220,38,38,0.2)]" />
-            <Link href="/" className="flex-shrink-0">
+            <a 
+              href="#home" 
+              onClick={(e) => scrollToSection(e, 'home')}
+              className="flex-shrink-0 cursor-pointer"
+            >
               <div className="relative w-[180px] h-[70px]">
                 <Image 
                   src={footerData.logo} 
-                  alt="InkVibe Logo" 
+                  alt={footerData.logoAlt || 'InkVibe Logo'} 
                   fill 
                   sizes="(max-width: 768px) 180px, 180px"
                   className="object-contain object-left" 
                 />
               </div>
-            </Link>
+            </a>
             <p className="text-gray-400 text-sm leading-relaxed">
               {footerData.description}
             </p>
@@ -94,15 +128,22 @@ export default function Footer() {
               <div className="w-12 h-[2px] bg-gradient-to-r from-red-600 to-red-400 mt-3 shadow-[0_0_8px_rgba(220,38,38,0.8)] rounded-full" />
             </div>
             <ul className="space-y-4">
-              {footerData.quickLinks.links.map((link, idx) => (
-                <li key={idx}>
-                  <Link href={link.href} className="group relative flex items-center text-sm text-gray-400 hover:text-white transition-colors w-fit">
-                    <ChevronRight className="w-3.5 h-3.5 text-red-600 mr-2 group-hover:translate-x-1 transition-transform" />
-                    {link.name}
-                    <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-red-500 transition-all duration-300 group-hover:w-full" />
-                  </Link>
-                </li>
-              ))}
+              {footerData.quickLinks.links.map((link, idx) => {
+                const target = FOOTER_LINK_MAP[link.href] || link.href.replace('/', '');
+                return (
+                  <li key={idx}>
+                    <a 
+                      href={`#${target}`} 
+                      onClick={(e) => scrollToSection(e, target)}
+                      className="group relative flex items-center text-sm text-gray-400 hover:text-white transition-colors w-fit cursor-pointer"
+                    >
+                      <ChevronRight className="w-3.5 h-3.5 text-red-600 mr-2 group-hover:translate-x-1 transition-transform" />
+                      {link.name}
+                      <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-red-500 transition-all duration-300 group-hover:w-full" />
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </motion.div>
 
@@ -113,15 +154,22 @@ export default function Footer() {
               <div className="w-12 h-[2px] bg-gradient-to-r from-red-600 to-red-400 mt-3 shadow-[0_0_8px_rgba(220,38,38,0.8)] rounded-full" />
             </div>
             <ul className="space-y-4">
-              {footerData.services.links.map((link, idx) => (
-                <li key={idx}>
-                  <Link href={link.href} className="group relative flex items-center text-sm text-gray-400 hover:text-white transition-colors w-fit">
-                    <ChevronRight className="w-3.5 h-3.5 text-red-600 mr-2 group-hover:translate-x-1 transition-transform" />
-                    {link.name}
-                    <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-red-500 transition-all duration-300 group-hover:w-full" />
-                  </Link>
-                </li>
-              ))}
+              {footerData.services.links.map((link, idx) => {
+                const target = FOOTER_LINK_MAP[link.href] || 'services';
+                return (
+                  <li key={idx}>
+                    <a 
+                      href={`#${target}`} 
+                      onClick={(e) => scrollToSection(e, target)}
+                      className="group relative flex items-center text-sm text-gray-400 hover:text-white transition-colors w-fit cursor-pointer"
+                    >
+                      <ChevronRight className="w-3.5 h-3.5 text-red-600 mr-2 group-hover:translate-x-1 transition-transform" />
+                      {link.name}
+                      <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-red-500 transition-all duration-300 group-hover:w-full" />
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </motion.div>
 
@@ -178,8 +226,8 @@ export default function Footer() {
               whileHover={{ scale: 1.1, backgroundColor: '#dc2626', color: '#fff' }}
               whileTap={{ scale: 0.9 }}
               onClick={scrollToTop}
-              className="w-8 h-8 rounded-full border border-red-600 flex items-center justify-center text-red-500 hover:text-white transition-colors"
-              aria-label="Scroll to top"
+              className="w-8 h-8 rounded-full border border-red-600 flex items-center justify-center text-red-500 hover:text-white transition-colors cursor-pointer"
+              aria-label={footerData.scrollToTopAriaLabel || 'Scroll to top'}
             >
               <ChevronUp className="w-4 h-4" />
             </motion.button>

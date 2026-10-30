@@ -2,19 +2,17 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { motion, Variants } from 'framer-motion';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { TeamMember, TeamSocialLink, TeamVariant } from '@/types';
-import contentData from '@/data/content.json';
+import { homePageData } from '@/data';
 
 const DynamicIcon = ({ svgStr, className }: { svgStr?: string; className?: string }) => {
   if (svgStr) {
     return (
-      <div 
+      <span 
         dangerouslySetInnerHTML={{ __html: svgStr }} 
-        className={`[&>svg]:w-full [&>svg]:h-full ${className}`} 
+        className={`inline-flex items-center justify-center [&>svg]:w-full [&>svg]:h-full ${className || ''}`} 
       />
     );
   }
@@ -41,13 +39,13 @@ const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const IconMap: Record<string, React.ElementType> = {
+const FallbackIconMap: Record<string, React.ElementType> = {
   'instagram': InstagramIcon,
   'facebook': FacebookIcon,
   'whatsapp': WhatsappIcon,
 };
 
-const defaultTeamData = (contentData as any).Tattoo.sections.Team.variants.TattooTeam1 as TeamVariant;
+const defaultTeamData = homePageData.Team;
 
 interface TeamProps {
   data?: TeamVariant;
@@ -55,21 +53,28 @@ interface TeamProps {
 
 export default function Team({ data }: TeamProps) {
   const teamData = data || defaultTeamData;
-  const pathname = usePathname();
-  const isTeamPage = pathname === '/team';
-  
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = teamData.itemsPerPage || 8;
+  const [mounted, setMounted] = useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const itemsPerPage = teamData.itemsPerPage || 4;
   const members = teamData.members || [];
   const totalPages = Math.ceil(members.length / itemsPerPage) || 1;
+  const safeCurrentPage = Math.min(currentPage, totalPages);
   
   const currentMembers = members.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    (safeCurrentPage - 1) * itemsPerPage,
+    safeCurrentPage * itemsPerPage
   );
 
-  const handlePrev = () => setCurrentPage(p => Math.max(1, p - 1));
-  const handleNext = () => setCurrentPage(p => Math.min(totalPages, p + 1));
+  const prevIconSvg = teamData.pagination?.prevSvg || teamData.prevSvg;
+  const nextIconSvg = teamData.pagination?.nextSvg || teamData.nextSvg;
+  const prevAriaLabel = teamData.pagination?.prevAriaLabel || teamData.prevAriaLabel || 'Previous page';
+  const nextAriaLabel = teamData.pagination?.nextAriaLabel || teamData.nextAriaLabel || 'Next page';
+  const pageAriaPrefix = teamData.pagination?.pageAriaPrefix || teamData.pageAriaPrefix || 'Page';
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -85,12 +90,15 @@ export default function Team({ data }: TeamProps) {
   };
 
   return (
-    <section className="w-full bg-[#050505] text-white py-6 relative overflow-hidden">
+    <section className="w-full bg-[#050505] text-white py-16 md:py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 lg:px-6 relative z-10">
         
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-8">
           <div className="flex flex-col w-full lg:w-1/2">
             <motion.div variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex items-center space-x-4 mb-4">
+              {teamData.subtitleSvg && (
+                <DynamicIcon svgStr={teamData.subtitleSvg} className="w-4 h-4 text-red-600 shrink-0" />
+              )}
               <h3 className="text-red-600 font-bold tracking-[0.2em] text-sm uppercase">
                 {teamData.subtitle}
               </h3>
@@ -110,7 +118,7 @@ export default function Team({ data }: TeamProps) {
         </div>
 
         <motion.div 
-          key={currentPage}
+          key={safeCurrentPage}
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -121,14 +129,14 @@ export default function Team({ data }: TeamProps) {
             <motion.div
               key={member.id || idx}
               variants={itemVariants}
-              className={`relative flex flex-col group p-[1px] overflow-hidden${!isTeamPage && idx >= 4 ? ' hidden sm:flex' : ''}`}
+              className="relative flex flex-col group p-[1px] overflow-hidden rounded-sm"
             >
               <span className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#dc2626_50%,transparent_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative flex flex-col bg-[#080808] border border-red-600/30 group-hover:border-transparent transition-colors duration-500 h-full z-10">
                 <div className="relative w-full aspect-[4/5] overflow-hidden">
                   <Image 
                     src={member.image} 
-                    alt={member.name} 
+                    alt={member.imageAlt || `${member.name} - ${member.role}`} 
                     fill 
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     className="object-cover opacity-90 group-hover:opacity-100 transition-transform duration-700 group-hover:scale-110" 
@@ -147,85 +155,79 @@ export default function Team({ data }: TeamProps) {
                   
                   <div className="flex items-center space-x-3 mt-auto relative z-30">
                     {member.socials?.map((social: TeamSocialLink, sIdx: number) => {
-                      const Icon = IconMap[social.platform?.toLowerCase()] || InstagramIcon;
+                      const platformKey = social.platform?.toLowerCase() || '';
+                      const sectionSvg = teamData.socialIcons?.[platformKey];
+                      const FallbackIcon = FallbackIconMap[platformKey] || InstagramIcon;
+                      const iconSvg = social.svg || sectionSvg;
+
                       return (
-                        <Link 
+                        <a 
                           href={social.url} 
                           key={sIdx}
+                          target="_blank"
+                          rel="noreferrer"
                           className="w-9 h-9 rounded-full border border-white/20 text-gray-300 flex items-center justify-center transition-all duration-300 hover:bg-red-600 hover:border-red-600 hover:text-white hover:scale-105 cursor-pointer"
-                          aria-label={social.platform || 'Social link'}
+                          aria-label={social.ariaLabel || `${member.name} on ${social.platform || 'Social'}`}
                         >
-                          {social.svg ? (
-                            <DynamicIcon svgStr={social.svg} className="w-4 h-4" />
+                          {iconSvg ? (
+                            <DynamicIcon svgStr={iconSvg} className="w-4 h-4" />
                           ) : (
-                            <Icon className="w-4 h-4" strokeWidth={1.5} />
+                            <FallbackIcon className="w-4 h-4" strokeWidth={1.5} />
                           )}
-                        </Link>
+                        </a>
                       );
                     })}
                   </div>
                 </div>
-                {member.id && (
-                  <Link href={`/team/${member.id}`} className="absolute inset-0 z-20" aria-label={`View ${member.name}'s profile`} />
-                )}
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {isTeamPage && totalPages > 1 && (
-          <motion.div 
-            variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="flex items-center justify-center space-x-4 mt-12"
-          >
-            <button 
-              onClick={handlePrev} 
-              disabled={currentPage === 1}
-              aria-label="Previous page"
-              className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors ${
-                currentPage === 1 ? 'border-gray-800 text-gray-600 cursor-not-allowed' : 'border-red-600/50 text-white hover:bg-red-600 hover:border-red-600'
-              }`}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center space-x-2 mt-12" suppressHydrationWarning>
+            <button
+              suppressHydrationWarning
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={mounted ? safeCurrentPage === 1 : false}
+              aria-label={prevAriaLabel}
+              className="w-10 h-10 flex items-center justify-center text-sm font-medium transition-colors border bg-transparent border-white/10 text-gray-400 hover:border-white/30 hover:text-white disabled:opacity-40 disabled:pointer-events-none cursor-pointer"
             >
-              <ChevronLeft className="w-5 h-5" />
+              {prevIconSvg ? (
+                <DynamicIcon svgStr={prevIconSvg} className="w-4 h-4" />
+              ) : (
+                <ChevronLeft className="w-4 h-4" />
+              )}
             </button>
-            <span className="text-sm font-semibold tracking-widest text-gray-400">
-              {currentPage} / {totalPages}
-            </span>
-            <button 
-              onClick={handleNext} 
-              disabled={currentPage === totalPages}
-              aria-label="Next page"
-              className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors ${
-                currentPage === totalPages ? 'border-gray-800 text-gray-600 cursor-not-allowed' : 'border-red-600/50 text-white hover:bg-red-600 hover:border-red-600'
-              }`}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                suppressHydrationWarning
+                onClick={() => setCurrentPage(page)}
+                aria-label={`${pageAriaPrefix} ${page}`}
+                className={`w-10 h-10 flex items-center justify-center text-sm font-medium transition-colors border cursor-pointer ${
+                  safeCurrentPage === page
+                    ? 'bg-red-600 border-red-600 text-white shadow-[0_0_12px_rgba(220,38,38,0.5)]'
+                    : 'bg-transparent border-white/10 text-gray-400 hover:border-white/30 hover:text-white'
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+            <button
+              suppressHydrationWarning
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={mounted ? safeCurrentPage === totalPages : false}
+              aria-label={nextAriaLabel}
+              className="w-10 h-10 flex items-center justify-center text-sm font-medium transition-colors border bg-transparent border-white/10 text-gray-400 hover:border-white/30 hover:text-white disabled:opacity-40 disabled:pointer-events-none cursor-pointer"
             >
-              <ChevronRight className="w-5 h-5" />
+              {nextIconSvg ? (
+                <DynamicIcon svgStr={nextIconSvg} className="w-4 h-4" />
+              ) : (
+                <ChevronRight className="w-4 h-4" />
+              )}
             </button>
-          </motion.div>
-        )}
-
-        {!isTeamPage && teamData.buttonText && teamData.buttonLink && (
-          <motion.div 
-            variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="flex justify-center mt-16"
-          >
-            <Link
-              href={teamData.buttonLink}
-              className="group relative inline-flex items-center justify-center bg-red-600 text-white px-8 py-4 text-sm font-bold tracking-wider uppercase overflow-hidden cursor-pointer shadow-[0_0_20px_rgba(220,38,38,0.3)] transition-all hover:shadow-[0_0_30px_rgba(220,38,38,0.6)]"
-            >
-              <span className="relative z-10 flex items-center">
-                {teamData.buttonText}
-                <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-              </span>
-              <div className="absolute inset-0 bg-red-700 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out" />
-            </Link>
-          </motion.div>
+          </div>
         )}
 
       </div>

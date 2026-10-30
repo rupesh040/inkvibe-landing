@@ -12,6 +12,30 @@ const QuoteIcon = () => (
   </svg>
 );
 
+function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+  return (
+    <div className="flex flex-col border border-red-600/30 p-8 md:p-10 bg-[#080808] h-full shadow-[0_4px_20px_rgba(0,0,0,0.5)] transition-all hover:border-red-600/60">
+      <div className="flex justify-between items-start mb-8">
+        <QuoteIcon />
+        <div className="flex space-x-1 mt-1">
+          {[...Array(testimonial.rating || 5)].map((_, i) => (
+            <Star key={i} className="w-4 h-4 fill-red-600 text-red-600" />
+          ))}
+        </div>
+      </div>
+      <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-10 flex-grow">
+        {testimonial.text}
+      </p>
+      <div className="mt-auto">
+        <div className="w-8 h-[2px] bg-red-600 mb-4" />
+        <h4 className="uppercase text-xs font-bold tracking-[0.15em] text-gray-400">
+          {testimonial.author}
+        </h4>
+      </div>
+    </div>
+  );
+}
+
 interface TestimonialsProps {
   data: TestimonialVariant;
 }
@@ -33,28 +57,6 @@ export default function Testimonials({ data: testimonialData }: TestimonialsProp
     setDirection(-1);
     setActiveIndex((prev) => (prev - 1 + total) % total);
   };
-
-  const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
-    <div className="flex flex-col border border-red-600/30 p-8 md:p-10 bg-[#080808] h-full shadow-[0_4px_20px_rgba(0,0,0,0.5)] transition-all hover:border-red-600/60">
-      <div className="flex justify-between items-start mb-8">
-        <QuoteIcon />
-        <div className="flex space-x-1 mt-1">
-          {[...Array(testimonial.rating || 5)].map((_, i) => (
-            <Star key={i} className="w-4 h-4 fill-red-600 text-red-600" />
-          ))}
-        </div>
-      </div>
-      <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-10 flex-grow">
-        {testimonial.text}
-      </p>
-      <div className="mt-auto">
-        <div className="w-8 h-[2px] bg-red-600 mb-4" />
-        <h4 className="uppercase text-xs font-bold tracking-[0.15em] text-gray-400">
-          {testimonial.author}
-        </h4>
-      </div>
-    </div>
-  );
 
   const card1 = total > 0 ? testimonials[activeIndex % total] : null;
   const card2 = total > 1 ? testimonials[(activeIndex + 1) % total] : null;
