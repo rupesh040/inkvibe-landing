@@ -30,7 +30,6 @@ export default function Team({ data }: TeamProps = {}) {
     setMounted(true);
   }, []);
 
-  // Filter unique members from JSON by ID, image, or name to guarantee no duplicates
   const members = React.useMemo(() => {
     const list = teamData?.members || [];
     const seen = new Set<string>();

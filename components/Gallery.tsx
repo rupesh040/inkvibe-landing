@@ -7,7 +7,6 @@ import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { GalleryVariant } from '@/types';
 
 export default function Gallery({ data }: { data: GalleryVariant }) {
-  // Use unique images from JSON data to avoid any duplicate rendering
   const images = React.useMemo(() => {
     const list = data?.images || [];
     return Array.from(new Set(list));
