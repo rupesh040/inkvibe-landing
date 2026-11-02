@@ -28,10 +28,6 @@ export default function Home() {
         <Services data={homePageData.Services} />
       </section>
 
-      <section id="process" className="scroll-mt-24">
-        <Process data={homePageData.Process} />
-      </section>
-
       <section id="team" className="scroll-mt-24">
         <Team data={homePageData.Team} />
       </section>
