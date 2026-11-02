@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, ChevronLeft, ArrowRight } from 'lucide-react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HeroVariant } from '@/types';
 
@@ -27,23 +27,6 @@ export default function Hero({ data: heroData }: HeroProps) {
     }, 6000);
     return () => clearInterval(timer);
   }, [slides.length]);
-
-  const handleButtonClick = (e: React.MouseEvent<HTMLAnchorElement>, link?: string) => {
-    e.preventDefault();
-    if (!link) {
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
-
-    const targetId = link.replace(/^(\/|#)/, '');
-    const targetElement = document.getElementById(targetId);
-
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <div className="relative w-full h-[420px] overflow-hidden bg-black">
@@ -97,7 +80,7 @@ export default function Hero({ data: heroData }: HeroProps) {
               <button
                 key={idx}
                 onClick={() => setCurrentSlide(idx)}
-                aria-label={`Go to slide ${idx + 1}`}
+                aria-label={`${heroData.slideAriaPrefix || 'Go to slide'} ${idx + 1}`}
                 className="group py-2 focus:outline-none cursor-pointer"
               >
                 <div 
@@ -116,7 +99,7 @@ export default function Hero({ data: heroData }: HeroProps) {
               whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.1)' }}
               whileTap={{ scale: 0.9 }}
               onClick={prevSlide}
-              aria-label="Previous slide"
+              aria-label={heroData.prevAriaLabel || 'Previous slide'}
               className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-white/50 transition-colors cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -125,7 +108,7 @@ export default function Hero({ data: heroData }: HeroProps) {
               whileHover={{ scale: 1.1, backgroundColor: 'rgba(220, 38, 38, 0.1)' }}
               whileTap={{ scale: 0.9 }}
               onClick={nextSlide}
-              aria-label="Next slide"
+              aria-label={heroData.nextAriaLabel || 'Next slide'}
               className="w-12 h-12 rounded-full border border-red-600 flex items-center justify-center text-red-500 hover:text-white hover:border-red-500 hover:bg-red-600/20 transition-colors cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />

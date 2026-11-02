@@ -8,7 +8,6 @@ import { AboutVariant } from '@/types';
 
 interface AboutProps {
   data: AboutVariant;
-  showButton?: boolean;
 }
 
 export default function About({ data: aboutData }: AboutProps) {

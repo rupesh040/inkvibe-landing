@@ -16,9 +16,7 @@
             "Process": "TattooProcess1",
             "Team": "TattooTeam1",
             "Testimonials": "TattooTestimonials1",
-            "Stats": "TattooStats1",
-            "CTA": "TattooCTA1",
-            "Blogs": "TattooBlogs1"
+            "Stats": "TattooStats1"
           },
           "gallery": {
             "Gallery": "TattooGallery1"
@@ -59,7 +57,9 @@
                 "href": "https://www.youtube.com/",
                 "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.052 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z\"/></svg>"
               }
-            ]
+            ],
+            "phoneAriaPrefix": "Call ",
+            "emailAriaPrefix": "Email "
           }
         }
       },
@@ -89,10 +89,6 @@
               {
                 "name": "GALLERY",
                 "href": "/gallery"
-              },
-              {
-                "name": "BLOGS",
-                "href": "/blogs"
               }
             ],
             "button": "CONTACT US",
@@ -112,9 +108,6 @@
                 "subtitlePart2": "TATTOO STUDIO",
                 "titleLine1": "BE PROUD OF YOUR",
                 "titleLine2": "NEW TATTOO",
-                "description": "Custom designs. Professional artists.<br/>Safe & hygienic. Lasting art.",
-                "buttonText": "Book Your Tattoo",
-                "buttonLink": "/contact",
                 "image": "/hero.webp"
               },
               {
@@ -122,9 +115,6 @@
                 "subtitlePart2": "DESIGNS",
                 "titleLine1": "EXPRESS YOUR",
                 "titleLine2": "TRUE SELF",
-                "description": "Turn your ideas into reality.<br/>Book a consultation today.",
-                "buttonText": "View Gallery",
-                "buttonLink": "/gallery",
                 "image": "/hero.webp"
               },
               {
@@ -132,12 +122,12 @@
                 "subtitlePart2": "ARTISTS",
                 "titleLine1": "MASTERPIECES ON",
                 "titleLine2": "YOUR SKIN",
-                "description": "Award-winning tattoo artists.<br/>Precision and creativity combined.",
-                "buttonText": "Meet The Team",
-                "buttonLink": "/team",
                 "image": "/hero.webp"
               }
-            ]
+            ],
+            "prevAriaLabel": "Previous slide",
+            "nextAriaLabel": "Next slide",
+            "slideAriaPrefix": "Go to slide"
           }
         }
       },
@@ -149,32 +139,12 @@
             "titleLine2": "IT'S A STORY",
             "description1": "At InkVibe, we believe tattoos are more than just designs - they are stories, emotions and a reflection of who you are. Our mission is to turn your ideas into meaningful, long-lasting art with precision and creativity.",
             "description2": "We provide a safe, hygienic and professional environment where passion meets artistry. Whether it's your first tattoo or a custom design, our skilled artists ensure an experience you'll always remember.",
-            "features": [
-              {
-                "icon": "diamond",
-                "title": "CUSTOM<br/>DESIGNS"
-              },
-              {
-                "icon": "users",
-                "title": "EXPERIENCED<br/>ARTISTS"
-              },
-              {
-                "icon": "shield-check",
-                "title": "SAFE &<br/>HYGIENIC"
-              },
-              {
-                "icon": "star",
-                "title": "LASTING<br/>ARTWORK"
-              }
-            ],
             "bulletPoints": [
               "Custom Designs Tailored to Your Vision",
               "Experienced & Certified Tattoo Artists",
               "100% Sterile & Hospital-Grade Hygiene",
               "Premium Quality Inks for Lasting Art"
             ],
-            "buttonText": "READ MORE",
-            "buttonLink": "/about",
             "image1": "/about/about-1.webp",
             "image2": "/about/about-2.webp",
             "image3": "/about/about-3.webp",
@@ -197,35 +167,24 @@
                 "title": "TATTOOING",
                 "description": "Express your story with custom tattoos designed to match your style and personality. Our skilled artists create meaningful, high-quality tattoos using professional techniques and premium inks.",
                 "image": "/service/service-1.webp",
-                "buttonText": "Read More",
-                "buttonLink": "/services/tattooing"
+                "buttonText": "Book Service"
               },
               {
                 "number": "02",
                 "title": "PIERCING",
                 "description": "Get professionally done piercings in a safe, hygienic environment. We offer a variety of ear, nose, lip, and body piercings with premium jewelry and expert care.",
                 "image": "/service/service-2.webp",
-                "buttonText": "Read More",
-                "buttonLink": "/services/piercing"
+                "buttonText": "Book Service"
               },
               {
                 "number": "03",
                 "title": "LASER REMOVAL",
                 "description": "Want to remove an old tattoo? Our advanced laser removal treatments help fade and eliminate unwanted tattoos safely and effectively, with minimal discomfort and professional care.",
                 "image": "/service/service-3.webp",
-                "buttonText": "Read More",
-                "buttonLink": "/services/laser-removal"
+                "buttonText": "Book Service"
               }
             ],
-            "modalLabels": {
-              "serviceBadge": "SERVICE",
-              "clickToView": "Click to view details",
-              "highlightsTitle": "SERVICE HIGHLIGHTS",
-              "portfolioSubtitle": "Sample Portfolio",
-              "consultationPrompt": "Ready to bring your vision to life? Consult with our master artists.",
-              "closeButton": "Close",
-              "bookButton": "Book Consultation"
-            }
+            "buttonText": "Book Service"
           }
         }
       },
@@ -329,26 +288,10 @@
                 "author": "JORDAN T.",
                 "rating": 5
               }
-            ]
-          }
-        }
-      },
-      "CTA": {
-        "variants": {
-          "TattooCTA1": {
-            "subtitle": "READY FOR A NEW STORY?",
-            "titleLine1": "LET'S CREATE",
-            "titleLine2": "YOUR NEXT TATTOO",
-            "watermark": "Tattoo",
-            "description": "Bring your ideas to life with our skilled artists. Safe, hygienic and professional tattoo experience in a comfortable studio.",
-            "image": "/cta/cta.webp",
-            "buttons": [
-              {
-                "text": "CONTACT US",
-                "link": "/contact",
-                "style": "solid"
-              }
-            ]
+            ],
+            "prevAriaLabel": "Previous testimonial",
+            "nextAriaLabel": "Next testimonial",
+            "indicatorAriaPrefix": "Go to testimonial"
           }
         }
       },
@@ -366,7 +309,6 @@
               "/services/laser-removal": "services",
               "/team": "team",
               "/gallery": "gallery",
-              "/blogs": "blogs",
               "/contact": "contact"
             },
             "social": [
@@ -419,10 +361,6 @@
                   "href": "/gallery"
                 },
                 {
-                  "name": "Blogs",
-                  "href": "/blogs"
-                },
-                {
                   "name": "Contact Us",
                   "href": "/contact"
                 }
@@ -455,21 +393,7 @@
               }
             },
             "bottomBar": {
-              "copyright": "© 2026 All Rights Reserved. Powered by Lestow",
-              "links": [
-                {
-                  "name": "Privacy Policy",
-                  "href": "#"
-                },
-                {
-                  "name": "Terms & Conditions",
-                  "href": "#"
-                },
-                {
-                  "name": "FAQs",
-                  "href": "#"
-                }
-              ]
+              "copyright": "© 2026 All Rights Reserved. Powered by Lestow"
             },
             "logoAlt": "InkVibe Logo",
             "scrollToTopAriaLabel": "Scroll to top"
@@ -487,38 +411,16 @@
               "/gallery/gallery-5.webp",
               "/gallery/gallery-6.webp",
               "/gallery/gallery-7.webp",
-              "/gallery/gallery-8.webp",
-              "/gallery/gallery-1.webp",
-              "/gallery/gallery-2.webp",
-              "/gallery/gallery-3.webp",
-              "/gallery/gallery-4.webp",
-              "/gallery/gallery-5.webp",
-              "/gallery/gallery-6.webp",
-              "/gallery/gallery-7.webp",
-              "/gallery/gallery-8.webp",
-              "/gallery/gallery-1.webp",
-              "/gallery/gallery-2.webp",
-              "/gallery/gallery-3.webp",
-              "/gallery/gallery-4.webp",
-              "/gallery/gallery-5.webp",
-              "/gallery/gallery-6.webp",
-              "/gallery/gallery-7.webp",
-              "/gallery/gallery-8.webp",
-              "/gallery/gallery-1.webp",
-              "/gallery/gallery-2.webp",
-              "/gallery/gallery-3.webp",
-              "/gallery/gallery-4.webp",
-              "/gallery/gallery-5.webp",
-              "/gallery/gallery-6.webp",
-              "/gallery/gallery-7.webp",
               "/gallery/gallery-8.webp"
             ],
             "subtitle": "PORTFOLIO",
             "titleLine1": "OUR INK",
             "titleLine2": "GALLERY",
             "description": "Explore our collection of custom tattoo art, fine-line detailing, realism, and cover-ups created by our master resident artists.",
-            "viewArtworkLabel": "View Artwork",
-            "itemsPerPage": 8
+            "itemsPerPage": 8,
+            "prevAriaLabel": "Previous page",
+            "nextAriaLabel": "Next page",
+            "pageAriaPrefix": "Page"
           }
         }
       },
@@ -579,176 +481,32 @@
             "submitButton": "Send Message",
             "successTitle": "Message Sent!",
             "successMessage": "We will get back to you as soon as possible.",
-            "map": {
-              "address": "452 Maple Ave, Apt 3B, Los Angeles, CA 90014",
-              "iframeSrc": "https://maps.google.com/maps?q=452%20Maple%20Ave,%20Los%20Angeles,%20CA%2090014&t=&z=13&ie=UTF8&iwloc=&output=embed"
-            },
-            "successCloseButton": "Close"
-          }
-        }
-      },
-      "ServiceDetails": {
-        "variants": {
-          "TattooServiceDetails1": {
-            "tattooing": {
-              "about": {
-                "subtitle": "ABOUT THIS SERVICE",
-                "titleLine1": "ART THAT SPEAKS",
-                "titleLine2": "BEYOND COLORS",
-                "description1": "Black & Grey tattoos focus on shades, contrast and detail to create realistic and expressive designs. This style is perfect for portraits, religious themes, nature, animals and custom concepts. Our skilled artists bring precision and depth to every piece, ensuring a tattoo that remains timeless.",
-                "description2": "Whether you prefer a bold statement piece or a subtle design, our Black & Grey tattoos are crafted with creativity and expertise to match your personal style.",
-                "image": "/service/service-1.webp",
-                "features": [
-                  {
-                    "icon": "Diamond",
-                    "title": "Detailed\nArtwork"
-                  },
-                  {
-                    "icon": "Users",
-                    "title": "Professional\nArtists"
-                  },
-                  {
-                    "icon": "Droplet",
-                    "title": "Premium\nInks"
-                  },
-                  {
-                    "icon": "ShieldCheck",
-                    "title": "Hygienic\nEnvironment"
-                  }
-                ]
+            "social": [
+              {
+                "name": "Instagram",
+                "icon": "instagram",
+                "href": "https://www.instagram.com/",
+                "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\"/><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"/><line x1=\"17.5\" x2=\"17.51\" y1=\"6.5\" y2=\"6.5\"/></svg>"
               },
-              "whyChoose": {
-                "subtitle": "WHY CHOOSE",
-                "titleLine1": "BLACK & GREY",
-                "titleLine2": "TATTOOS?",
-                "description": "This style is loved for its versatility and timeless appeal. Black & Grey tattoos highlight depth, shadows and fine details, making them a popular choice for both first-timers and tattoo enthusiasts.",
-                "list": [
-                  "Timeless and classic look",
-                  "Suitable for all skin tones",
-                  "Perfect for detailed and realistic designs",
-                  "Works well for both small and large tattoos",
-                  "Long-lasting and low maintenance"
-                ]
+              {
+                "name": "Facebook",
+                "icon": "facebook",
+                "href": "https://www.facebook.com/",
+                "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z\"/></svg>"
               },
-              "ourWork": {
-                "subtitle": "OUR WORK",
-                "title": "BLACK & GREY",
-                "images": [
-                  "/portfolio/tattoo-1.jpg",
-                  "/portfolio/tattoo-2.jpg",
-                  "/portfolio/tattoo-3.jpg",
-                  "/gallery/gallery-1.webp",
-                  "/gallery/gallery-3.webp",
-                  "/gallery/gallery-5.webp"
-                ]
+              {
+                "name": "Youtube",
+                "icon": "youtube",
+                "href": "https://www.youtube.com/",
+                "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z\"/><polygon points=\"9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02\"/></svg>"
+              },
+              {
+                "name": "Whatsapp",
+                "icon": "whatsapp",
+                "href": "https://www.whatsapp.com/",
+                "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.052 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z\"/></svg>"
               }
-            },
-            "piercing": {
-              "about": {
-                "subtitle": "ABOUT THIS SERVICE",
-                "titleLine1": "PRECISION &",
-                "titleLine2": "STYLE COMBINED",
-                "description1": "Piercing is a powerful form of self-expression. Our expert piercers offer a wide variety of ear, nose, lip and body piercings performed in a safe, sterile environment. We use only premium quality jewelry to ensure comfort and long-lasting results.",
-                "description2": "Whether it is your first piercing or you are adding to your collection, our team will guide you through the process and help you choose the perfect placement and jewelry to match your style.",
-                "image": "/service/service-2.webp",
-                "features": [
-                  {
-                    "icon": "Diamond",
-                    "title": "Premium\nJewelry"
-                  },
-                  {
-                    "icon": "Users",
-                    "title": "Expert\nPiercers"
-                  },
-                  {
-                    "icon": "Droplet",
-                    "title": "Safe\nMaterials"
-                  },
-                  {
-                    "icon": "ShieldCheck",
-                    "title": "Sterile\nEnvironment"
-                  }
-                ]
-              },
-              "whyChoose": {
-                "subtitle": "WHY CHOOSE",
-                "titleLine1": "OUR PIERCING",
-                "titleLine2": "SERVICES?",
-                "description": "We combine artistic eye with professional precision to deliver piercing experiences that are safe, clean and uniquely tailored to your aesthetic.",
-                "list": [
-                  "Safe and hygienic procedures",
-                  "Wide range of piercing styles",
-                  "High-quality, allergy-safe jewelry",
-                  "Expert advice on placement and aftercare",
-                  "Comfortable and welcoming studio environment"
-                ]
-              },
-              "ourWork": {
-                "subtitle": "OUR WORK",
-                "title": "PIERCING",
-                "images": [
-                  "/gallery/gallery-2.webp",
-                  "/gallery/gallery-4.webp",
-                  "/gallery/gallery-6.webp",
-                  "/gallery/gallery-8.webp",
-                  "/gallery/gallery-1.webp",
-                  "/gallery/gallery-7.webp"
-                ]
-              }
-            },
-            "laser-removal": {
-              "about": {
-                "subtitle": "ABOUT THIS SERVICE",
-                "titleLine1": "ERASE & START",
-                "titleLine2": "FRESH AGAIN",
-                "description1": "Our advanced laser tattoo removal treatments use cutting-edge technology to safely and effectively fade or fully remove unwanted tattoos. The process targets ink pigments with precision while protecting the surrounding skin, minimizing discomfort and recovery time.",
-                "description2": "Whether you want to remove an old tattoo completely or lighten it for a cover-up, our experienced technicians will create a personalized removal plan that delivers the best results for your skin type.",
-                "image": "/service/service-3.webp",
-                "features": [
-                  {
-                    "icon": "Diamond",
-                    "title": "Advanced\nTechnology"
-                  },
-                  {
-                    "icon": "Users",
-                    "title": "Certified\nTechnicians"
-                  },
-                  {
-                    "icon": "Droplet",
-                    "title": "Minimal\nDiscomfort"
-                  },
-                  {
-                    "icon": "ShieldCheck",
-                    "title": "Skin-Safe\nProcedure"
-                  }
-                ]
-              },
-              "whyChoose": {
-                "subtitle": "WHY CHOOSE",
-                "titleLine1": "LASER TATTOO",
-                "titleLine2": "REMOVAL?",
-                "description": "Laser removal is the safest and most effective method to eliminate unwanted tattoos. Our state-of-the-art equipment and trained technicians ensure optimal results with minimal side effects.",
-                "list": [
-                  "Safe and FDA-approved laser technology",
-                  "Effective on all ink colors and skin tones",
-                  "Minimal scarring and side effects",
-                  "Customized treatment plans",
-                  "Professional aftercare guidance"
-                ]
-              },
-              "ourWork": {
-                "subtitle": "OUR WORK",
-                "title": "LASER REMOVAL",
-                "images": [
-                  "/gallery/gallery-3.webp",
-                  "/gallery/gallery-5.webp",
-                  "/gallery/gallery-7.webp",
-                  "/service/service-3.webp",
-                  "/gallery/gallery-2.webp",
-                  "/gallery/gallery-4.webp"
-                ]
-              }
-            }
+            ]
           }
         }
       },
@@ -759,7 +517,6 @@
             "titleLine1": "MEET OUR",
             "titleLine2": "ARTISTS",
             "description": "Our talented and experienced artists are passionate about creating unique tattoos that tell your story. Each artist brings their own style and expertise to ensure a personalized and exceptional experience.",
-            "itemsPerPage": 4,
             "members": [
               {
                 "id": "alex-carter",
@@ -868,528 +625,12 @@
                   }
                 ],
                 "imageAlt": "EMMA WILSON - Tattoo Artist"
-              },
-              {
-                "id": "chris-evans",
-                "name": "CHRIS EVANS",
-                "role": "Piercing Specialist",
-                "image": "/team/team-1.webp",
-                "socials": [
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\"/><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"/><line x1=\"17.5\" x2=\"17.51\" y1=\"6.5\" y2=\"6.5\"/></svg>",
-                    "url": "https://instagram.com",
-                    "platform": "Instagram",
-                    "ariaLabel": "CHRIS EVANS on Instagram"
-                  },
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z\"/></svg>",
-                    "url": "https://facebook.com",
-                    "platform": "Facebook",
-                    "ariaLabel": "CHRIS EVANS on Facebook"
-                  },
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.052 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z\"/></svg>",
-                    "url": "https://whatsapp.com",
-                    "platform": "Whatsapp",
-                    "ariaLabel": "CHRIS EVANS on Whatsapp"
-                  }
-                ],
-                "imageAlt": "CHRIS EVANS - Piercing Specialist"
-              },
-              {
-                "id": "david-clark",
-                "name": "DAVID CLARK",
-                "role": "Traditional Artist",
-                "image": "/team/team-2.webp",
-                "socials": [
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\"/><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"/><line x1=\"17.5\" x2=\"17.51\" y1=\"6.5\" y2=\"6.5\"/></svg>",
-                    "url": "https://instagram.com",
-                    "platform": "Instagram",
-                    "ariaLabel": "DAVID CLARK on Instagram"
-                  },
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z\"/></svg>",
-                    "url": "https://facebook.com",
-                    "platform": "Facebook",
-                    "ariaLabel": "DAVID CLARK on Facebook"
-                  },
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.052 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z\"/></svg>",
-                    "url": "https://whatsapp.com",
-                    "platform": "Whatsapp",
-                    "ariaLabel": "DAVID CLARK on Whatsapp"
-                  }
-                ],
-                "imageAlt": "DAVID CLARK - Traditional Artist"
-              },
-              {
-                "id": "lucas-anderson",
-                "name": "LUCAS ANDERSON",
-                "role": "Fine Line Artist",
-                "image": "/team/team-3.webp",
-                "socials": [
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\"/><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"/><line x1=\"17.5\" x2=\"17.51\" y1=\"6.5\" y2=\"6.5\"/></svg>",
-                    "url": "https://instagram.com",
-                    "platform": "Instagram",
-                    "ariaLabel": "LUCAS ANDERSON on Instagram"
-                  },
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z\"/></svg>",
-                    "url": "https://facebook.com",
-                    "platform": "Facebook",
-                    "ariaLabel": "LUCAS ANDERSON on Facebook"
-                  },
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.052 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z\"/></svg>",
-                    "url": "https://whatsapp.com",
-                    "platform": "Whatsapp",
-                    "ariaLabel": "LUCAS ANDERSON on Whatsapp"
-                  }
-                ],
-                "imageAlt": "LUCAS ANDERSON - Fine Line Artist"
-              },
-              {
-                "id": "mia-taylor",
-                "name": "MIA TAYLOR",
-                "role": "Neo-Traditional Artist",
-                "image": "/team/team-4.webp",
-                "socials": [
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\"/><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"/><line x1=\"17.5\" x2=\"17.51\" y1=\"6.5\" y2=\"6.5\"/></svg>",
-                    "url": "https://instagram.com",
-                    "platform": "Instagram",
-                    "ariaLabel": "MIA TAYLOR on Instagram"
-                  },
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z\"/></svg>",
-                    "url": "https://facebook.com",
-                    "platform": "Facebook",
-                    "ariaLabel": "MIA TAYLOR on Facebook"
-                  },
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.052 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z\"/></svg>",
-                    "url": "https://whatsapp.com",
-                    "platform": "Whatsapp",
-                    "ariaLabel": "MIA TAYLOR on Whatsapp"
-                  }
-                ],
-                "imageAlt": "MIA TAYLOR - Neo-Traditional Artist"
-              },
-              {
-                "id": "james-rodriguez",
-                "name": "JAMES RODRIGUEZ",
-                "role": "Watercolor Specialist",
-                "image": "/team/team-1.webp",
-                "socials": [
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\"/><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"/><line x1=\"17.5\" x2=\"17.51\" y1=\"6.5\" y2=\"6.5\"/></svg>",
-                    "url": "https://instagram.com",
-                    "platform": "Instagram",
-                    "ariaLabel": "JAMES RODRIGUEZ on Instagram"
-                  },
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z\"/></svg>",
-                    "url": "https://facebook.com",
-                    "platform": "Facebook",
-                    "ariaLabel": "JAMES RODRIGUEZ on Facebook"
-                  },
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.052 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z\"/></svg>",
-                    "url": "https://whatsapp.com",
-                    "platform": "Whatsapp",
-                    "ariaLabel": "JAMES RODRIGUEZ on Whatsapp"
-                  }
-                ],
-                "imageAlt": "JAMES RODRIGUEZ - Watercolor Specialist"
-              },
-              {
-                "id": "sarah-miller",
-                "name": "SARAH MILLER",
-                "role": "Japanese Tattoo Artist",
-                "image": "/team/team-2.webp",
-                "socials": [
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\"/><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"/><line x1=\"17.5\" x2=\"17.51\" y1=\"6.5\" y2=\"6.5\"/></svg>",
-                    "url": "https://instagram.com",
-                    "platform": "Instagram",
-                    "ariaLabel": "SARAH MILLER on Instagram"
-                  },
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z\"/></svg>",
-                    "url": "https://facebook.com",
-                    "platform": "Facebook",
-                    "ariaLabel": "SARAH MILLER on Facebook"
-                  },
-                  {
-                    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.052 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z\"/></svg>",
-                    "url": "https://whatsapp.com",
-                    "platform": "Whatsapp",
-                    "ariaLabel": "SARAH MILLER on Whatsapp"
-                  }
-                ],
-                "imageAlt": "SARAH MILLER - Japanese Tattoo Artist"
               }
             ],
-            "pagination": {
-              "prevAriaLabel": "Previous page",
-              "nextAriaLabel": "Next page",
-              "pageAriaPrefix": "Page",
-              "prevSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m15 18-6-6 6-6\"/></svg>",
-              "nextSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m9 18 6-6-6-6\"/></svg>"
-            },
-            "prevSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m15 18-6-6 6-6\"/></svg>",
-            "nextSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m9 18 6-6-6-6\"/></svg>",
-            "prevAriaLabel": "Previous page",
-            "nextAriaLabel": "Next page",
-            "pageAriaPrefix": "Page",
             "socialIcons": {
               "instagram": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\"/><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"/><line x1=\"17.5\" x2=\"17.51\" y1=\"6.5\" y2=\"6.5\"/></svg>",
               "facebook": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z\"/></svg>",
               "whatsapp": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.052 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z\"/></svg>"
-            },
-            "buttonText": "BOOK A CONSULTATION",
-            "buttonLink": "#contact",
-            "buttonSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg>"
-          }
-        }
-      },
-      "Blogs": {
-        "variants": {
-          "TattooBlogs1": {
-            "subtitle": "OUR BLOGS",
-            "titleLine1": "LATEST",
-            "titleLine2": "BLOGS",
-            "buttonText": "Load More",
-            "buttonLink": "#",
-            "blogs": [
-              {
-                "image": "/blogs/blog-1.webp",
-                "tag": "Tattoo Tips",
-                "date": "12 AUG 2026",
-                "title": "Essential Aftercare Tips for a Long-Lasting Tattoo",
-                "description": "Proper aftercare is key to keeping your tattoo vibrant and healthy. Here are some expert tips to help you heal faster and maintain the quality.",
-                "link": "/blogs/essential-aftercare-tips-for-a-long-lasting-tattoo-0"
-              },
-              {
-                "image": "/blogs/blog-2.webp",
-                "tag": "Inspiration",
-                "date": "05 AUG 2026",
-                "title": "Popular Tattoo Styles You Should Know",
-                "description": "From minimalistic designs to bold and intricate artwork, explore the most popular tattoo styles and find the one that suits your personality.",
-                "link": "/blogs/popular-tattoo-styles-you-should-know-1"
-              },
-              {
-                "image": "/blogs/blog-3.webp",
-                "tag": "Studio Life",
-                "date": "28 JUL 2026",
-                "title": "What to Expect During Your First Tattoo Session",
-                "description": "Getting your first tattoo can be exciting and nerve-wracking. Here's a guide on what to expect, how to prepare and tips for a smooth experience.",
-                "link": "/blogs/what-to-expect-during-your-first-tattoo-session-2"
-              }
-            ],
-            "description": "Stay updated with tattooing insights, professional aftercare guidelines, design inspirations, and behind-the-scenes studio news.",
-            "categories": [
-              "All",
-              "Tattoo Tips",
-              "Inspiration",
-              "Studio Life"
-            ],
-            "readArticleText": "Read Article",
-            "closeButton": "Close",
-            "writtenByLabel": "Written by",
-            "defaultAuthor": "InkVibe Master Artist"
-          }
-        }
-      },
-      "BlogDetails": {
-        "variants": {
-          "TattooBlogDetails1": {
-            "essential-aftercare-tips-for-a-long-lasting-tattoo-0": {
-              "image": "/blogs/blog-1.webp",
-              "description": "Proper aftercare is key to keeping your tattoo vibrant and healthy. Here are some expert tips to help you heal faster and maintain the quality. Getting a tattoo is a personal and meaningful decision. It's more than just ink on skin — it's a form of self-expression, a story, and a piece of art that stays with you for life. With so many styles, placements and designs to choose from, it's important to take the time to find a tattoo that truly resonates with you.",
-              "sections": [
-                {
-                  "number": "01",
-                  "title": "UNDERSTAND THE MEANING",
-                  "text": "A tattoo often carries a personal meaning, whether it represents a memory, a value, a loved one, or a life experience. Think about what you want your tattoo to symbolize. A meaningful design will always feel more special and timeless."
-                },
-                {
-                  "number": "02",
-                  "title": "EXPLORE DIFFERENT STYLES",
-                  "text": "Tattoo styles vary from realistic and black & grey to minimal, geometric, tribal, and more. Each style has a unique look and feel. Take time to explore different styles, look at reference images, and discuss with your artist to see which style matches your personality and idea."
-                },
-                {
-                  "number": "03",
-                  "title": "CONSIDER THE PLACEMENT",
-                  "text": "The placement of your tattoo can impact its overall look and visibility. Some prefer visible areas like the arms or hands, while others choose more private locations. Consider your lifestyle, profession and personal comfort when deciding where to get inked."
-                },
-                {
-                  "number": "04",
-                  "title": "WORK WITH A PROFESSIONAL ARTIST",
-                  "text": "A skilled and experienced tattoo artist can help bring your idea to life. They can guide you on design, size, style and placement to ensure the best results. Always choose a professional studio that prioritizes hygiene, safety and high-quality work."
-                },
-                {
-                  "number": "05",
-                  "title": "TAKE YOUR TIME",
-                  "text": "A tattoo is a long-term commitment, so don't rush the decision. Take time to research, gather inspiration and consult with your artist. The right design will feel right, and it's worth the wait."
-                }
-              ],
-              "sidebar": {
-                "recentPosts": [
-                  {
-                    "title": "Popular Tattoo Styles You Should Know",
-                    "date": "05 AUG 2026",
-                    "image": "/blogs/blog-2.webp",
-                    "link": "/blogs/popular-tattoo-styles-you-should-know-1"
-                  },
-                  {
-                    "title": "What to Expect During Your First Tattoo Session",
-                    "date": "28 JUL 2026",
-                    "image": "/blogs/blog-3.webp",
-                    "link": "/blogs/what-to-expect-during-your-first-tattoo-session-2"
-                  },
-                  {
-                    "title": "Popular Tattoo Styles You Should Know",
-                    "date": "05 AUG 2026",
-                    "image": "/blogs/blog-2.webp",
-                    "link": "/blogs/popular-tattoo-styles-you-should-know-4"
-                  },
-                  {
-                    "title": "What to Expect During Your First Tattoo Session",
-                    "date": "28 JUL 2026",
-                    "image": "/blogs/blog.webp",
-                    "link": "/blogs/what-to-expect-during-your-first-tattoo-session-5"
-                  }
-                ],
-                "categories": [
-                  {
-                    "name": "Tattoo Tips",
-                    "count": 8,
-                    "link": "#"
-                  },
-                  {
-                    "name": "Design Inspiration",
-                    "count": 6,
-                    "link": "#"
-                  },
-                  {
-                    "name": "Aftercare Guide",
-                    "count": 4,
-                    "link": "#"
-                  },
-                  {
-                    "name": "Tattoo Styles",
-                    "count": 5,
-                    "link": "#"
-                  },
-                  {
-                    "name": "Studio Updates",
-                    "count": 3,
-                    "link": "#"
-                  }
-                ],
-                "cta": {
-                  "titleLine1": "HAVE A TATTOO",
-                  "titleLine2": "IDEA IN MIND?",
-                  "text": "Book a consultation with our expert artists and bring your vision to life.",
-                  "image": "/blogs/blog.webp",
-                  "link": "/contact"
-                }
-              },
-              "title": "Essential Aftercare Tips for a Long-Lasting Tattoo",
-              "author": "Marcus Cross — Master Artist"
-            },
-            "popular-tattoo-styles-you-should-know-1": {
-              "image": "/blogs/blog-2.webp",
-              "description": "From minimalistic designs to bold and intricate artwork, explore the most popular tattoo styles and find the one that suits your personality. Getting a tattoo is a personal and meaningful decision. It's more than just ink on skin — it's a form of self-expression, a story, and a piece of art that stays with you for life. With so many styles, placements and designs to choose from, it's important to take the time to find a tattoo that truly resonates with you.",
-              "sections": [
-                {
-                  "number": "01",
-                  "title": "UNDERSTAND THE MEANING",
-                  "text": "A tattoo often carries a personal meaning, whether it represents a memory, a value, a loved one, or a life experience. Think about what you want your tattoo to symbolize. A meaningful design will always feel more special and timeless."
-                },
-                {
-                  "number": "02",
-                  "title": "EXPLORE DIFFERENT STYLES",
-                  "text": "Tattoo styles vary from realistic and black & grey to minimal, geometric, tribal, and more. Each style has a unique look and feel. Take time to explore different styles, look at reference images, and discuss with your artist to see which style matches your personality and idea."
-                },
-                {
-                  "number": "03",
-                  "title": "CONSIDER THE PLACEMENT",
-                  "text": "The placement of your tattoo can impact its overall look and visibility. Some prefer visible areas like the arms or hands, while others choose more private locations. Consider your lifestyle, profession and personal comfort when deciding where to get inked."
-                },
-                {
-                  "number": "04",
-                  "title": "WORK WITH A PROFESSIONAL ARTIST",
-                  "text": "A skilled and experienced tattoo artist can help bring your idea to life. They can guide you on design, size, style and placement to ensure the best results. Always choose a professional studio that prioritizes hygiene, safety and high-quality work."
-                },
-                {
-                  "number": "05",
-                  "title": "TAKE YOUR TIME",
-                  "text": "A tattoo is a long-term commitment, so don't rush the decision. Take time to research, gather inspiration and consult with your artist. The right design will feel right, and it's worth the wait."
-                }
-              ],
-              "sidebar": {
-                "recentPosts": [
-                  {
-                    "title": "Essential Aftercare Tips for a Long-Lasting Tattoo",
-                    "date": "12 AUG 2026",
-                    "image": "/blogs/blog-1.webp",
-                    "link": "/blogs/essential-aftercare-tips-for-a-long-lasting-tattoo-0"
-                  },
-                  {
-                    "title": "What to Expect During Your First Tattoo Session",
-                    "date": "28 JUL 2026",
-                    "image": "/blogs/blog-3.webp",
-                    "link": "/blogs/what-to-expect-during-your-first-tattoo-session-2"
-                  },
-                  {
-                    "title": "Essential Aftercare Tips for a Long-Lasting Tattoo",
-                    "date": "12 AUG 2026",
-                    "image": "/blogs/blog-1.webp",
-                    "link": "/blogs/essential-aftercare-tips-for-a-long-lasting-tattoo-3"
-                  },
-                  {
-                    "title": "What to Expect During Your First Tattoo Session",
-                    "date": "28 JUL 2026",
-                    "image": "/blogs/blog-3.webp",
-                    "link": "/blogs/what-to-expect-during-your-first-tattoo-session-5"
-                  }
-                ],
-                "categories": [
-                  {
-                    "name": "Tattoo Tips",
-                    "count": 8,
-                    "link": "#"
-                  },
-                  {
-                    "name": "Design Inspiration",
-                    "count": 6,
-                    "link": "#"
-                  },
-                  {
-                    "name": "Aftercare Guide",
-                    "count": 4,
-                    "link": "#"
-                  },
-                  {
-                    "name": "Tattoo Styles",
-                    "count": 5,
-                    "link": "#"
-                  },
-                  {
-                    "name": "Studio Updates",
-                    "count": 3,
-                    "link": "#"
-                  }
-                ],
-                "cta": {
-                  "titleLine1": "HAVE A TATTOO",
-                  "titleLine2": "IDEA IN MIND?",
-                  "text": "Book a consultation with our expert artists and bring your vision to life.",
-                  "image": "/blogs/blog.webp",
-                  "link": "/contact"
-                }
-              },
-              "title": "Popular Tattoo Styles You Should Know",
-              "author": "Elena Vance — Senior Artist"
-            },
-            "what-to-expect-during-your-first-tattoo-session-2": {
-              "image": "/blogs/blog-3.webp",
-              "description": "Getting your first tattoo can be exciting and nerve-wracking. Here's a guide on what to expect, how to prepare and tips for a smooth experience. Getting a tattoo is a personal and meaningful decision. It's more than just ink on skin — it's a form of self-expression, a story, and a piece of art that stays with you for life. With so many styles, placements and designs to choose from, it's important to take the time to find a tattoo that truly resonates with you.",
-              "sections": [
-                {
-                  "number": "01",
-                  "title": "UNDERSTAND THE MEANING",
-                  "text": "A tattoo often carries a personal meaning, whether it represents a memory, a value, a loved one, or a life experience. Think about what you want your tattoo to symbolize. A meaningful design will always feel more special and timeless."
-                },
-                {
-                  "number": "02",
-                  "title": "EXPLORE DIFFERENT STYLES",
-                  "text": "Tattoo styles vary from realistic and black & grey to minimal, geometric, tribal, and more. Each style has a unique look and feel. Take time to explore different styles, look at reference images, and discuss with your artist to see which style matches your personality and idea."
-                },
-                {
-                  "number": "03",
-                  "title": "CONSIDER THE PLACEMENT",
-                  "text": "The placement of your tattoo can impact its overall look and visibility. Some prefer visible areas like the arms or hands, while others choose more private locations. Consider your lifestyle, profession and personal comfort when deciding where to get inked."
-                },
-                {
-                  "number": "04",
-                  "title": "WORK WITH A PROFESSIONAL ARTIST",
-                  "text": "A skilled and experienced tattoo artist can help bring your idea to life. They can guide you on design, size, style and placement to ensure the best results. Always choose a professional studio that prioritizes hygiene, safety and high-quality work."
-                },
-                {
-                  "number": "05",
-                  "title": "TAKE YOUR TIME",
-                  "text": "A tattoo is a long-term commitment, so don't rush the decision. Take time to research, gather inspiration and consult with your artist. The right design will feel right, and it's worth the wait."
-                }
-              ],
-              "sidebar": {
-                "recentPosts": [
-                  {
-                    "title": "Essential Aftercare Tips for a Long-Lasting Tattoo",
-                    "date": "12 AUG 2026",
-                    "image": "/blogs/blog-1.webp",
-                    "link": "/blogs/essential-aftercare-tips-for-a-long-lasting-tattoo-0"
-                  },
-                  {
-                    "title": "Popular Tattoo Styles You Should Know",
-                    "date": "05 AUG 2026",
-                    "image": "/blogs/blog-2.webp",
-                    "link": "/blogs/popular-tattoo-styles-you-should-know-1"
-                  },
-                  {
-                    "title": "Essential Aftercare Tips for a Long-Lasting Tattoo",
-                    "date": "12 AUG 2026",
-                    "image": "/blogs/blog-1.webp",
-                    "link": "/blogs/essential-aftercare-tips-for-a-long-lasting-tattoo-3"
-                  },
-                  {
-                    "title": "Popular Tattoo Styles You Should Know",
-                    "date": "05 AUG 2026",
-                    "image": "/blogs/blog-2.webp",
-                    "link": "/blogs/popular-tattoo-styles-you-should-know-4"
-                  }
-                ],
-                "categories": [
-                  {
-                    "name": "Tattoo Tips",
-                    "count": 8,
-                    "link": "#"
-                  },
-                  {
-                    "name": "Design Inspiration",
-                    "count": 6,
-                    "link": "#"
-                  },
-                  {
-                    "name": "Aftercare Guide",
-                    "count": 4,
-                    "link": "#"
-                  },
-                  {
-                    "name": "Tattoo Styles",
-                    "count": 5,
-                    "link": "#"
-                  },
-                  {
-                    "name": "Studio Updates",
-                    "count": 3,
-                    "link": "#"
-                  }
-                ],
-                "cta": {
-                  "titleLine1": "HAVE A TATTOO",
-                  "titleLine2": "IDEA IN MIND?",
-                  "text": "Book a consultation with our expert artists and bring your vision to life.",
-                  "image": "/blogs/blog.webp",
-                  "link": "/contact"
-                }
-              },
-              "title": "What to Expect During Your First Tattoo Session",
-              "author": "David Chen — Resident Artist"
             }
           }
         }

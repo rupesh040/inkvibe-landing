@@ -12,11 +12,7 @@ import {
   GalleryVariant,
   TeamVariant,
   TestimonialVariant,
-  CTAVariant,
-  BlogsVariant,
   ContactVariant,
-  ServiceDetailData,
-  BlogDetailItem,
   SiteMetadata,
 } from '@/types';
 
@@ -46,19 +42,11 @@ export const contactData: ContactVariant =
 export const homePageData = {
   Hero: content.Tattoo.sections.Hero.variants[t1.pages.home.Hero] as HeroVariant,
   About: content.Tattoo.sections.About.variants[t1.pages.home.About] as AboutVariant,
-  Services: content.Tattoo.sections.Services.variants[t1.pages.home.Services] as ServicesVariant,
   Stats: content.Tattoo.sections.Stats.variants[t1.pages.home.Stats] as StatsVariant,
+  Services: content.Tattoo.sections.Services.variants[t1.pages.home.Services] as ServicesVariant,
   Process: content.Tattoo.sections.Process.variants[t1.pages.home.Process] as ProcessVariant,
-  Gallery: galleryData,
   Team: content.Tattoo.sections.Team.variants[t1.pages.home.Team] as TeamVariant,
+  Gallery: galleryData,
   Testimonials: content.Tattoo.sections.Testimonials.variants[t1.pages.home.Testimonials] as TestimonialVariant,
-  CTA: content.Tattoo.sections.CTA.variants[t1.pages.home.CTA] as CTAVariant,
-  Blogs: content.Tattoo.sections.Blogs.variants[t1.pages.home.Blogs] as BlogsVariant,
   Contact: contactData,
 };
-
-export const serviceDetailsMap: Record<string, ServiceDetailData> =
-  content.Tattoo.sections.ServiceDetails?.variants?.TattooServiceDetails1 || {};
-
-export const blogDetailsMap: Record<string, BlogDetailItem> =
-  content.Tattoo.sections.BlogDetails?.variants?.TattooBlogDetails1 || {};

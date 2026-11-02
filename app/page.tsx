@@ -6,9 +6,7 @@ import Process from "@/components/Process";
 import Gallery from "@/components/Gallery";
 import Team from "@/components/Team";
 import Testimonials from "@/components/Testimonials";
-import Blogs from "@/components/Blogs";
 import ContactSection from "@/components/ContactSection";
-import ContactMap from "@/components/ContactMap";
 import { homePageData } from '@/data';
 
 export default function Home() {
@@ -46,15 +44,8 @@ export default function Home() {
         <Testimonials data={homePageData.Testimonials} />
       </section>
 
-      <section id="blogs" className="scroll-mt-24">
-        <Blogs data={homePageData.Blogs} />
-      </section>
-
       <section id="contact" className="scroll-mt-24">
         <ContactSection data={homePageData.Contact} />
-        {homePageData.Contact.map && (
-          <ContactMap mapData={homePageData.Contact.map} />
-        )}
       </section>
     </div>
   );

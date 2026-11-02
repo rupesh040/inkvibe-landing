@@ -84,7 +84,7 @@ export default function Testimonials({ data: testimonialData }: TestimonialsProp
             <button
               onClick={goPrev}
               type="button"
-              aria-label="Previous testimonial"
+              aria-label={testimonialData.prevAriaLabel || "Previous testimonial"}
               className="w-12 h-12 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:text-white hover:border-red-600 transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-5 h-5" strokeWidth={1.5} />
@@ -92,7 +92,7 @@ export default function Testimonials({ data: testimonialData }: TestimonialsProp
             <button
               onClick={goNext}
               type="button"
-              aria-label="Next testimonial"
+              aria-label={testimonialData.nextAriaLabel || "Next testimonial"}
               className="w-12 h-12 rounded-full bg-[#dc2626] flex items-center justify-center text-white hover:bg-[#b91c1c] transition-colors cursor-pointer"
             >
               <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
@@ -140,7 +140,7 @@ export default function Testimonials({ data: testimonialData }: TestimonialsProp
                   setDirection(idx > activeIndex ? 1 : -1);
                   setActiveIndex(idx);
                 }}
-                aria-label={`Go to testimonial ${idx + 1}`}
+                aria-label={`${testimonialData.indicatorAriaPrefix || "Go to testimonial"} ${idx + 1}`}
                 className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                   idx === activeIndex ? 'w-8 bg-red-600' : 'w-3 bg-white/30 hover:bg-white/60'
                 }`}

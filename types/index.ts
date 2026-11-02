@@ -37,19 +37,14 @@ export interface HeroSlide {
   subtitlePart2: string;
   titleLine1: string;
   titleLine2: string;
-  description: string;
-  buttonText: string;
-  buttonLink: string;
   image: string;
 }
 
 export interface HeroVariant {
+  prevAriaLabel?: string;
+  nextAriaLabel?: string;
+  slideAriaPrefix?: string;
   slides: HeroSlide[];
-}
-
-export interface AboutFeature {
-  icon: string;
-  title: string;
 }
 
 export interface AboutVariant {
@@ -58,10 +53,7 @@ export interface AboutVariant {
   titleLine2: string;
   description1: string;
   description2: string;
-  features: AboutFeature[];
   bulletPoints?: string[];
-  buttonText: string;
-  buttonLink: string;
   image1: string;
   image2: string;
   image3: string;
@@ -76,17 +68,6 @@ export interface ServiceItem {
   description: string;
   image: string;
   buttonText: string;
-  buttonLink: string;
-}
-
-export interface ServicesModalLabels {
-  serviceBadge?: string;
-  clickToView?: string;
-  highlightsTitle?: string;
-  portfolioSubtitle?: string;
-  consultationPrompt?: string;
-  closeButton?: string;
-  bookButton?: string;
 }
 
 export interface ServicesVariant {
@@ -94,37 +75,8 @@ export interface ServicesVariant {
   titleLine1: string;
   titleLine2: string;
   description: string;
+  buttonText?: string;
   services: ServiceItem[];
-  modalLabels?: ServicesModalLabels;
-}
-
-export interface ServiceDetailFeature {
-  icon: string;
-  title: string;
-}
-
-export interface ServiceDetailData {
-  about?: {
-    subtitle?: string;
-    titleLine1?: string;
-    titleLine2?: string;
-    description1?: string;
-    description2?: string;
-    image?: string;
-    features?: ServiceDetailFeature[];
-  };
-  whyChoose?: {
-    subtitle?: string;
-    titleLine1?: string;
-    titleLine2?: string;
-    description?: string;
-    list?: string[];
-  };
-  ourWork?: {
-    subtitle?: string;
-    title?: string;
-    images?: string[];
-  };
 }
 
 export interface StatItem {
@@ -198,85 +150,6 @@ export interface TeamVariant {
   pageAriaPrefix?: string;
   socialIcons?: Record<string, string>;
   members: TeamMember[];
-  buttonText?: string;
-  buttonLink?: string;
-  buttonSvg?: string;
-}
-
-export interface CTAButton {
-  text: string;
-  link: string;
-  style: 'solid' | 'outline';
-}
-
-export interface CTAVariant {
-  subtitle: string;
-  titleLine1: string;
-  titleLine2: string;
-  watermark: string;
-  description: string;
-  buttons: CTAButton[];
-  image: string;
-}
-
-export interface BlogItem {
-  image: string;
-  tag: string;
-  date: string;
-  title: string;
-  description: string;
-  link: string;
-}
-
-export interface BlogsVariant {
-  subtitle: string;
-  titleLine1: string;
-  titleLine2: string;
-  description?: string;
-  categories?: string[];
-  readArticleText?: string;
-  closeButton?: string;
-  writtenByLabel?: string;
-  defaultAuthor?: string;
-  blogs: BlogItem[];
-  buttonText: string;
-  buttonLink: string;
-}
-
-export interface BlogDetailSection {
-  heading?: string;
-  content?: string;
-  number?: string;
-  title?: string;
-  text?: string;
-}
-
-export interface BlogDetailItem {
-  title?: string;
-  image?: string;
-  description?: string;
-  sections?: BlogDetailSection[];
-  author?: string;
-  sidebar?: {
-    recentPosts?: Array<{
-      title: string;
-      date: string;
-      image: string;
-      link: string;
-    }>;
-    categories?: Array<{
-      name: string;
-      count: number;
-      link: string;
-    }>;
-    cta?: {
-      titleLine1: string;
-      titleLine2: string;
-      text: string;
-      image: string;
-      link: string;
-    };
-  };
 }
 
 export interface Testimonial {
@@ -289,6 +162,9 @@ export interface TestimonialVariant {
   subtitle: string;
   titleLine1: string;
   titleLine2: string;
+  prevAriaLabel?: string;
+  nextAriaLabel?: string;
+  indicatorAriaPrefix?: string;
   testimonials: Testimonial[];
 }
 
@@ -326,7 +202,6 @@ export interface FooterVariant {
   };
   bottomBar: {
     copyright: string;
-    links: FooterLink[];
   };
 }
 
@@ -343,6 +218,7 @@ export interface ContactVariant {
   backgroundImage: string;
   contactItems: { label: string; value: string }[];
   followUsLabel: string;
+  social?: SocialLink[];
   formSubtitle: string;
   formTitleLine1: string;
   formTitleLine2: string;
@@ -355,14 +231,9 @@ export interface ContactVariant {
     service: ContactField;
     message: ContactField;
   };
-  map?: {
-    address: string;
-    iframeSrc: string;
-  };
   submitButton: string;
   successTitle: string;
   successMessage: string;
-  successCloseButton?: string;
 }
 
 export interface GalleryVariant {
@@ -370,8 +241,10 @@ export interface GalleryVariant {
   titleLine1?: string;
   titleLine2?: string;
   description?: string;
-  viewArtworkLabel?: string;
   itemsPerPage?: number;
+  prevAriaLabel?: string;
+  nextAriaLabel?: string;
+  pageAriaPrefix?: string;
   images: string[];
 }
 
@@ -396,13 +269,11 @@ export interface ContentData {
           home: {
             Hero: string;
             About: string;
+            Stats: string;
             Services: string;
             Process: string;
             Team: string;
             Testimonials: string;
-            Stats: string;
-            CTA: string;
-            Blogs: string;
           };
           gallery: {
             Gallery: string;
@@ -415,18 +286,14 @@ export interface ContentData {
       Header: { variants: Record<string, HeaderVariant> };
       Hero: { variants: Record<string, HeroVariant> };
       About: { variants: Record<string, AboutVariant> };
+      Stats: { variants: Record<string, StatsVariant> };
       Services: { variants: Record<string, ServicesVariant> };
       Process: { variants: Record<string, ProcessVariant> };
       Team: { variants: Record<string, TeamVariant> };
-      Stats: { variants: Record<string, StatsVariant> };
       Testimonials: { variants: Record<string, TestimonialVariant> };
-      CTA: { variants: Record<string, CTAVariant> };
-      Blogs: { variants: Record<string, BlogsVariant> };
       Footer: { variants: Record<string, FooterVariant> };
       Gallery: { variants: Record<string, GalleryVariant> };
       Contact: { variants: Record<string, ContactVariant> };
-      ServiceDetails: { variants: Record<string, Record<string, ServiceDetailData>> };
-      BlogDetails: { variants: Record<string, Record<string, BlogDetailItem>> };
     };
   };
 }

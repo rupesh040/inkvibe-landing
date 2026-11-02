@@ -7,7 +7,7 @@ import { MapPin, Phone, Mail, ArrowRight, Send } from 'lucide-react';
 import { ContactVariant } from '@/types';
 import { sharedData } from '@/data';
 
-const footer = sharedData.Footer;
+const defaultSocial = sharedData.Footer.social;
 
 const DynamicIcon = ({ svgStr, className }: { svgStr?: string; className?: string }) => {
   if (!svgStr) return null;
@@ -39,7 +39,6 @@ export default function ContactSection({ data }: ContactSectionProps) {
   const contactIcons = [MapPin, Phone, Mail];
 
   return (
-    <>
     <section className="w-full bg-[#050505] text-white py-12 md:py-12 relative">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8">
         <div className="flex flex-col lg:flex-row gap-8 xl:gap-16">
@@ -105,7 +104,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
                 <motion.div custom={6} className="flex flex-col">
                   <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-red-600 mb-3">{data.followUsLabel}</span>
                   <div className="flex items-center gap-3">
-                    {footer.social.map((s, i) => (
+                    {(data.social || defaultSocial).map((s, i) => (
                       <motion.a key={i} href={s.href} whileHover={{ scale: 1.15, backgroundColor: '#dc2626', borderColor: '#dc2626' }} whileTap={{ scale: 0.9 }}
                         className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white transition-all duration-300" aria-label={s.name}>
                         <DynamicIcon svgStr={s.svg} className="w-4 h-4" />
@@ -133,6 +132,26 @@ export default function ContactSection({ data }: ContactSectionProps) {
                 </h3>
                 <p className="text-gray-400 text-sm leading-relaxed pt-1">{data.formDescription}</p>
               </div>
+
+              {submitted && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 border border-red-600 bg-red-600/10 rounded-sm flex items-start gap-3 shadow-[0_0_20px_rgba(220,38,38,0.2)]"
+                >
+                  <div className="w-8 h-8 rounded-full border border-red-600 flex items-center justify-center shrink-0 bg-red-600/20 text-red-500 mt-0.5">
+                    <Send className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold font-sans text-white uppercase tracking-wider">
+                      {data.successTitle}
+                    </h4>
+                    <p className="text-gray-300 text-xs leading-relaxed mt-0.5">
+                      {data.successMessage}
+                    </p>
+                  </div>
+                </motion.div>
+              )}
 
               <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -201,44 +220,5 @@ export default function ContactSection({ data }: ContactSectionProps) {
         </div>
       </div>
     </section>
-
-    {submitted && (
-      <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
-        <motion.div 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }} 
-          className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-          onClick={() => setSubmitted(false)}
-        />
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9, y: 20 }} 
-          animate={{ opacity: 1, scale: 1, y: 0 }} 
-          className="relative z-10 bg-[#080808] border border-red-600 p-8 md:p-12 max-w-md w-full flex flex-col items-center text-center shadow-[0_0_40px_rgba(220,38,38,0.3)]"
-        >
-          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-red-600 -translate-x-px -translate-y-px" />
-          <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-red-600 translate-x-px -translate-y-px" />
-          <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-red-600 -translate-x-px translate-y-px" />
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-red-600 translate-x-px translate-y-px" />
-
-          <div className="w-16 h-16 rounded-full border border-red-600 flex items-center justify-center mb-6 bg-red-600/10">
-            <Send className="w-6 h-6 text-red-600" />
-          </div>
-          <h4 className="text-2xl font-bold font-sans text-white uppercase tracking-wider mb-2">
-            {data.successTitle}
-          </h4>
-          <p className="text-gray-400 text-sm leading-relaxed mb-8">
-            {data.successMessage}
-          </p>
-          <button 
-            onClick={() => setSubmitted(false)}
-            className="w-full relative overflow-hidden group bg-red-600 text-white text-sm font-bold tracking-wider uppercase px-8 py-3 cursor-pointer"
-          >
-            <div className="absolute inset-0 bg-red-700 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out" />
-            <span className="relative z-10">{data.successCloseButton || "Close"}</span>
-          </button>
-        </motion.div>
-      </div>
-    )}
-    </>
   );
 }
