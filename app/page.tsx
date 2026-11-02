@@ -2,7 +2,6 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Stats from "@/components/Stats";
 import Services from "@/components/Servicesection";
-import Process from "@/components/Process";
 import Gallery from "@/components/Gallery";
 import Team from "@/components/Team";
 import Testimonials from "@/components/Testimonials";
